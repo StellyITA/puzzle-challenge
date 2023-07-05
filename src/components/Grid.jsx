@@ -1,20 +1,4 @@
-'use client'
-
-import { useState, useEffect } from 'react';
-
-import SudokuMaker from '../controllers/SudokuMaker.js'
-const puzzleMaker = new SudokuMaker;
-
-export default function Grid() {
-	
-	const [puzzle,setPuzzle] = useState({
-		puzzle: [],
-		removed: []
-	});
-	
-	useEffect(() => {
-		setPuzzle(puzzleMaker.getPuzzle("easy"))
-	}, []);
+export default function Grid({ puzzle }) {
 	
 	return (
 		<form>

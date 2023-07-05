@@ -4,15 +4,32 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Grid from '../../components/Grid.jsx';
 
+import SudokuMaker from '../../controllers/SudokuMaker.js'
+const puzzleMaker = new SudokuMaker;
+
 import pencilIcon from '/public/images/pencilmark.png';
 
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 
 export default function Sudoku() {
 
 	const difficulties = ["Easy","Medium","Hard","Expert"];
 
 	const [difficulty,setDiff] = useState(difficulties[0]);
+	
+	const [puzzle,setPuzzle] = useState({
+		puzzle: [],
+		removed: []
+	});
+	
+	useEffect(() => {
+		setPuzzle(puzzleMaker.getPuzzle(difficulty.toLowerCase()))
+	}, []);
+	
+	const onDiffClick = (diff) => {
+		setDiff(diff);
+		return setPuzzle(puzzleMaker.getPuzzle(diff.toLowerCase()));
+	}
 	
 	const numbers = Array.from({ length: 9 }, (v,i) => i + 1);
 	
@@ -29,11 +46,11 @@ export default function Sudoku() {
 				</div>
 				<div className='grid grid-cols-4 sm:pr-36 sm:pl-36 md:pr-48 md:pl-48 lg:pr-80 lg:pl-80'>
 					{difficulties.map(diff => (
-						<button className={`m-2 p-1 ${diff != difficulty ? "bg-indigo-50 active:bg-indigo-200 hover:bg-indigo-200 border border-indigo-300" : "bg-blue-600 active:bg-blue-700 hover:bg-blue-700 border border-blue-800 text-white"} rounded sm:text-sm`}>{diff}</button>
+						<button onClick={() => onDiffClick(diff)} className={`m-2 p-1 ${diff != difficulty ? "bg-indigo-50 active:bg-indigo-200 hover:bg-indigo-200 border border-indigo-300" : "bg-blue-600 active:bg-blue-700 hover:bg-blue-700 border border-blue-800 text-white"} rounded sm:text-sm`}>{diff}</button>
 					))}
 				</div>
 				<div className='flex justify-center'>
-					<Grid/>
+					<Grid puzzle={puzzle}/>
 				</div>
 				<div className='flex justify-center'>
 					{numbers.map(n => (
