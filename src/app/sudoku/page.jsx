@@ -43,7 +43,7 @@ export default function Sudoku() {
 				<button>
 					<Image 
 						src={pencilIcon}
-						className="m-4 sm:ml-96"
+						className="m-4 sm:ml-36 lg:ml-80"
 					/>
 				</button>
 		</div>
