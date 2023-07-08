@@ -1,4 +1,6 @@
-export default function Grid({ puzzleObj, puzzleBorderColor, focusedCellBorderColor }) {
+export default function Grid({ puzzleObj, puzzleBorderColor, focusedCellBorderColor, toggledButtonColor, untoggledButtonColor, focusedPencilCellBg }) {
+	
+	const nums = ['1','2','3','4','5','6','7','8','9'];
 	
 	const onSubmit = (e) => {
 		e.preventDefault();
@@ -16,11 +18,30 @@ export default function Grid({ puzzleObj, puzzleBorderColor, focusedCellBorderCo
 	
 	const onCellFocus = (cell) => {
 		if (document.getElementById('focused-cell')) {
-			document.getElementById('focused-cell').className = document.getElementById('focused-cell').className.replace(focusedCellBorderColor,puzzleBorderColor)
+			document.getElementById('focused-cell').className = document.getElementById('focused-cell').className
+			.replace(focusedCellBorderColor,puzzleBorderColor)
+			.replace(focusedPencilCellBg, "");
 			document.getElementById('focused-cell').id = '';
 		}
 		cell.id = 'focused-cell';
-		cell.className = cell.className.replace(puzzleBorderColor,focusedCellBorderColor);
+		cell.className = cell.className.replace(puzzleBorderColor,focusedCellBorderColor)
+		if (cell.readOnly) cell.className += focusedPencilCellBg;
+		if (cell.readOnly && cell.value == 'click') {
+			let pencilArr = [" "," "," "," "," ","\n"," "," "," "," "," ","\n"," "," "," "," "," "]
+			cell.value = pencilArr.join("");
+			cell.className += " leading-none";
+			nums.map(n => {
+				document.getElementById('btn-' + n).className = document.getElementById('btn-' + n).className.replace(toggledButtonColor,untoggledButtonColor);
+			})
+		} else if (cell.readOnly) {
+			nums.map(n => {
+				if (cell.value.indexOf(n) != -1) {
+					document.getElementById('btn-' + n).className = document.getElementById('btn-' + n).className.replace(untoggledButtonColor,toggledButtonColor);
+				} else {
+					document.getElementById('btn-' + n).className = document.getElementById('btn-' + n).className.replace(toggledButtonColor,untoggledButtonColor);
+				}
+			})
+		}
 	}
 	
 	return (
@@ -30,12 +51,12 @@ export default function Grid({ puzzleObj, puzzleBorderColor, focusedCellBorderCo
 					key={"region" + iReg}
 					className={`aspect-square text-2xl grid grid-cols-3 border ${puzzleBorderColor}`}
 				>{region.map((cell,iCell) => (
-					cell == "" ? <input
+					cell == "" ? <textarea
 						onFocus={(e) => onCellFocus(e.target)}
 						name='guess'
 					 	key={"cell-" + iCell + "-region" + iReg + "-removed"}
 						inputMode='none' 
-						className={`aspect-square text-center text-gray-orange bg-yellow-50 border ${puzzleBorderColor} focus:outline-none`}
+						className={`resize-none aspect-square text-center text-gray-orange bg-yellow-50 border ${puzzleBorderColor} focus:outline-none`}
 					/> : <div
 					 	key={"cell-" + iCell + "-region-" + iReg + "-clue"}
 						className={`aspect-square flex items-center justify-center border ${puzzleBorderColor}`}

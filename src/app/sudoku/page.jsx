@@ -21,6 +21,7 @@ export default function Sudoku() {
 	const guessTextColor = "text-gray-orange";
 	const toggledButtonColor = "bg-blue-600 active:bg-blue-700 hover:bg-blue-700 border border-blue-800 text-white";
 	const untoggledButtonColor = 'bg-indigo-50 active:bg-indigo-200 hover:bg-indigo-200 border border-indigo-300';
+	const focusedPencilCellBg = ' bg-yellow-200'
 	
 	
 	// States
@@ -51,7 +52,10 @@ export default function Sudoku() {
 			formArr.map((cell,i) => {
 				if (cell.readOnly == true) {
 					document.forms["sudoku-form"].elements[i].readOnly = false;
-					document.forms["sudoku-form"].elements[i].className = document.forms["sudoku-form"].elements[i].className.replace(darkTextColor,guessTextColor).replace(" text-xs","");
+					document.forms["sudoku-form"].elements[i].className = document.forms["sudoku-form"].elements[i].className
+					.replace(darkTextColor,guessTextColor)
+					.replace(" text-[10px]","")
+					.replace(' leading-none',"");
 					document.forms["sudoku-form"].elements[i].value = '';
 				}
 			})
@@ -59,9 +63,14 @@ export default function Sudoku() {
 		document.getElementById("sudoku-form").reset();
 		document.getElementById("instruction").innerHTML = "Enjoy!";
 		if (document.getElementById('focused-cell')) {
-			document.getElementById('focused-cell').className = document.getElementById('focused-cell').className.replace(focusedCellBorderColor,puzzleBorderColor);
+			document.getElementById('focused-cell').className = document.getElementById('focused-cell').className
+			.replace(focusedCellBorderColor,puzzleBorderColor)
+			.replace(focusedPencilCellBg,"");
 			document.getElementById('focused-cell').id = '';
 		}
+		numbers.map(n => {
+			document.getElementById('btn-' + n).className = document.getElementById('btn-' + n).className.replace(toggledButtonColor,untoggledButtonColor);
+		})
 		setDiff(diff);
 		return setPuzzle(puzzleMaker.getPuzzle(diff.toLowerCase()));
 	}
@@ -69,21 +78,46 @@ export default function Sudoku() {
 	const onKeyNumClick = (num) => {
 		if (!document.getElementById('focused-cell')) {
 			document.getElementById('instruction').innerHTML = 'Select cell first.';
-		} else if (!pencilmark) {
+		} else if (!document.getElementById('focused-cell').readOnly) {
 			document.getElementById('focused-cell').value = num
+		} else if (document.getElementById('focused-cell').readOnly) {
+			let pencilArr = document.getElementById('focused-cell').value.split("");
+			if (pencilArr.indexOf(num.toString()) == -1) {
+				pencilArr[num + num - 2] = num;
+				document.getElementById('btn-' + num).className = document.getElementById('btn-' + num).className.replace(untoggledButtonColor,toggledButtonColor);
+			} else {
+				pencilArr[num + num - 2] = ' ';
+				document.getElementById('btn-' + num).className = document.getElementById('btn-' + num).className.replace(toggledButtonColor,untoggledButtonColor);
+			}
+			document.getElementById('focused-cell').value = pencilArr.join("");
 		}
 	}
 	
 	const onPencilClick = () => {
-		setPencilmark(true);
-		const formArr = [...document.forms["sudoku-form"].elements];
-		formArr.map((cell,i) => {
-			if (cell.value == "") {
-				document.forms["sudoku-form"].elements[i].readOnly = true;
-				document.forms["sudoku-form"].elements[i].className = document.forms["sudoku-form"].elements[i].className.replace(guessTextColor,darkTextColor) + " text-xs";
-				document.forms["sudoku-form"].elements[i].value = 'click';
-			}
-		})
+		if (!pencilmark) {
+			setPencilmark(true);
+			const formArr = [...document.forms["sudoku-form"].elements];
+			formArr.map((cell,i) => {
+				if (cell.value == "") {
+					document.forms["sudoku-form"].elements[i].readOnly = true;
+					document.forms["sudoku-form"].elements[i].className = document.forms["sudoku-form"].elements[i].className.replace(guessTextColor,darkTextColor) + " text-[10px]";
+					document.forms["sudoku-form"].elements[i].value = 'click';
+				}
+			})
+		} else if (document.getElementById('focused-cell')) {
+			document.getElementById('focused-cell').readOnly = false;
+			document.getElementById('focused-cell').value = "";
+			document.getElementById('focused-cell').className = document.getElementById('focused-cell').className
+			.replace(darkTextColor,guessTextColor)
+			.replace(" text-[10px]","")
+			.replace(' leading-none',"")
+			.replace(focusedPencilCellBg,"");
+			numbers.map(n => {
+				document.getElementById('btn-' + n).className = document.getElementById('btn-' + n).className.replace(toggledButtonColor,untoggledButtonColor);
+			})
+		} else {
+			document.getElementById('instruction').innerHTML = 'Select cell first.';
+		}
 	}
 	
 	return (
@@ -110,6 +144,9 @@ export default function Sudoku() {
 						puzzleObj={puzzle}
 						puzzleBorderColor={puzzleBorderColor}
 						focusedCellBorderColor={focusedCellBorderColor}
+						toggledButtonColor={toggledButtonColor}
+						untoggledButtonColor={untoggledButtonColor}
+						focusedPencilCellBg={focusedPencilCellBg}
 					/>
 				</div>
 				<div className='flex justify-center'>
