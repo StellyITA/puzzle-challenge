@@ -6,10 +6,7 @@ import Layout from './layout.jsx'
 export default function Home() {
 
 	const games = [
-	'Sudoku','Sudoku','Sudoku','Sudoku',
-	'Sudoku','Sudoku','Sudoku','Sudoku',
-	'Sudoku','Sudoku','Sudoku','Sudoku',
-	'Sudoku','Sudoku','Sudoku'];
+	'Sudoku'];
 	
   return (
   	<div className='grid'>
