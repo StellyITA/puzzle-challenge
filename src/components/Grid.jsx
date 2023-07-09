@@ -1,4 +1,4 @@
-export default function Grid({ puzzleObj, puzzleBorderColor, focusedCellBorderColor, toggledButtonColor, untoggledButtonColor, focusedPencilCellBg }) {
+export default function Grid({ puzzleObj, puzzleBorderColor, focusedCellBorderColor, toggledButtonColor, untoggledButtonColor, focusedPencilCellBg, puzzleBgColor, timerRef }) {
 	
 	const nums = ['1','2','3','4','5','6','7','8','9'];
 	
@@ -9,6 +9,7 @@ export default function Grid({ puzzleObj, puzzleBorderColor, focusedCellBorderCo
     const guesses = sudokuData.getAll('guess');
     if (guesses.toString() == puzzleObj.removed.toString()) {
     	document.getElementById("instruction").innerHTML = "Well done!";
+    	clearInterval(timerRef.current);
     } else if (guesses.toString().match(",,") || guesses.toString().match(/^,/) || guesses.toString().match(/,$/)) {
     	document.getElementById("instruction").innerHTML = "Missing numbers.";
     } else {
@@ -20,14 +21,15 @@ export default function Grid({ puzzleObj, puzzleBorderColor, focusedCellBorderCo
 		if (document.getElementById('focused-cell')) {
 			document.getElementById('focused-cell').className = document.getElementById('focused-cell').className
 			.replace(focusedCellBorderColor,puzzleBorderColor)
-			.replace(focusedPencilCellBg, "");
+			.replace(focusedPencilCellBg,puzzleBgColor);
 			document.getElementById('focused-cell').id = '';
 		}
 		cell.id = 'focused-cell';
 		cell.className = cell.className.replace(puzzleBorderColor,focusedCellBorderColor)
-		if (cell.readOnly) cell.className += focusedPencilCellBg;
+		if (cell.readOnly) cell.className = cell.className.replace(puzzleBgColor,focusedPencilCellBg);
+		console.log(cell.className)
 		if (cell.readOnly && cell.value == 'click') {
-			let pencilArr = [" "," "," "," "," ","\n"," "," "," "," "," ","\n"," "," "," "," "," "]
+			let pencilArr = [" "," "," "," "," ","\n"," "," "," "," "," ","\n"," "," "," "," "," "];
 			cell.value = pencilArr.join("");
 			cell.className += " leading-none";
 			nums.map(n => {
@@ -56,7 +58,7 @@ export default function Grid({ puzzleObj, puzzleBorderColor, focusedCellBorderCo
 						name='guess'
 					 	key={"cell-" + iCell + "-region" + iReg + "-removed"}
 						inputMode='none' 
-						className={`resize-none aspect-square text-center text-gray-orange bg-yellow-50 border ${puzzleBorderColor} focus:outline-none`}
+						className={`select-none resize-none aspect-square pt-1 sm:pt-0 text-center text-gray-orange bg-yellow-50 border ${puzzleBorderColor} focus:outline-none`}
 					/> : <div
 					 	key={"cell-" + iCell + "-region-" + iReg + "-clue"}
 						className={`aspect-square flex items-center justify-center border ${puzzleBorderColor}`}
