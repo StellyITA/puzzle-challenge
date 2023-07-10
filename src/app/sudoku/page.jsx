@@ -4,8 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Grid from '../../components/Grid.jsx';
 
-import SudokuMaker from '../../controllers/SudokuMaker.js'
-const puzzleMaker = new SudokuMaker;
+import { getPuzzle } from '../../controllers/SudokuMaker.js'
 
 import pencilIcon from '/public/images/pencilmark.png';
 
@@ -42,7 +41,7 @@ export default function Sudoku() {
 	const timerRef = useRef();
 	
 	useEffect(() => {
-		setPuzzle(puzzleMaker.getPuzzle(difficulty.toLowerCase()))
+		setPuzzle(getPuzzle(difficulty.toLowerCase()))
 	}, []);
 	
 	useEffect(() => {
@@ -82,7 +81,7 @@ export default function Sudoku() {
 		});
 		document.getElementById('pencil-button').className = document.getElementById('pencil-button').className.replace(activePencilButton,"");
 		setDiff(diff);
-		return setPuzzle(puzzleMaker.getPuzzle(diff.toLowerCase()));
+		return setPuzzle(getPuzzle(diff.toLowerCase()));
 	}
 	
 	function onKeyNumClick(num) {

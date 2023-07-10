@@ -59,7 +59,7 @@ export default function Grid({ puzzleObj, puzzleBorderColor, focusedCellBorderCo
 						name='guess'
 					 	key={"cell-" + iCell + "-region" + iReg + "-removed"}
 						inputMode='none' 
-						className={`resize-none aspect-square pt-1 sm:pt-0 text-center text-gray-orange bg-yellow-50 border ${puzzleBorderColor} focus:outline-none`}
+						className={`select-none resize-none aspect-square pt-1 sm:pt-0 text-center text-gray-orange bg-yellow-50 border ${puzzleBorderColor} focus:outline-none`}
 					/> : <div
 					 	key={"cell-" + iCell + "-region-" + iReg + "-clue"}
 						className={`aspect-square flex items-center justify-center border ${puzzleBorderColor}`}

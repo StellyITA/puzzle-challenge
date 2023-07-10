@@ -19,6 +19,7 @@ export default function Home() {
 						className="hover:text-indigo-900"
 					>{e}
 						<Image
+							key={e}
 							src={require(`/home/stelly/puzzle-challenge/public/images/${e.toLowerCase()}.png`)}
 							alt={e}
 							width={1000}
