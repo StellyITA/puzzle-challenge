@@ -23,6 +23,7 @@ export default function Sudoku() {
 	const toggledButtonColor = "bg-blue-600 active:bg-blue-700 hover:bg-blue-700 border border-blue-800 text-white";
 	const untoggledButtonColor = 'bg-indigo-50 active:bg-indigo-200 hover:bg-indigo-200 border border-indigo-300';
 	const focusedPencilCellBg = 'bg-yellow-200';
+	const activePencilButton = " bg-blue-600 rounded-3xl";
 	
 	
 	// States
@@ -33,8 +34,6 @@ export default function Sudoku() {
 		puzzle: [],
 		removed: []
 	});
-	
-	const [pencilmark,setPencilmark] = useState(false);
 	
 	const [timer,setTimer] = useState(0);
 	
@@ -51,45 +50,42 @@ export default function Sudoku() {
 			setTimer(prev => prev + 1);
 		}, 1000);
 		return () => clearInterval(timerRef.current);
-	}, [])
+	}, [difficulty])
 	
 	const minutes = Math.floor(timer/60);
 	const seconds = timer - minutes * 60;
 	
 	//Event handlers
 	
-	const onDiffClick = (diff) => {
+	function onDiffClick(diff) {
 		setTimer(0);
-		if (pencilmark) {
-			setPencilmark(false);
-			const formArr = [...document.forms["sudoku-form"].elements];
-			formArr.map((cell,i) => {
-				if (cell.readOnly == true) {
-					document.forms["sudoku-form"].elements[i].readOnly = false;
-					document.forms["sudoku-form"].elements[i].className = document.forms["sudoku-form"].elements[i].className
+		document.getElementById("sudoku-form").reset();
+		document.getElementById("instruction").innerHTML = "Enjoy!";
+		let sudokuForm = [...document.forms['sudoku-form'].elements];
+		sudokuForm.map((cell,cellIndex) => {
+			if (cell.readOnly) {
+				document.forms['sudoku-form'].elements[cellIndex].className = document.forms['sudoku-form'].elements[cellIndex].className
+					.replace(focusedPencilCellBg,puzzleBgColor)
 					.replace(darkTextColor,guessTextColor)
 					.replace(" text-[10px]","")
 					.replace(' leading-none',"");
-					document.forms["sudoku-form"].elements[i].value = '';
-				}
-			})
-		}
-		document.getElementById("sudoku-form").reset();
-		document.getElementById("instruction").innerHTML = "Enjoy!";
+					cell.readOnly = false;
+			}
+		});
 		if (document.getElementById('focused-cell')) {
 			document.getElementById('focused-cell').className = document.getElementById('focused-cell').className
-			.replace(focusedCellBorderColor,puzzleBorderColor)
-			.replace(focusedPencilCellBg,puzzleBgColor);
+				.replace(focusedCellBorderColor,puzzleBorderColor);
 			document.getElementById('focused-cell').id = '';
 		}
 		numbers.map(n => {
 			document.getElementById('btn-' + n).className = document.getElementById('btn-' + n).className.replace(toggledButtonColor,untoggledButtonColor);
-		})
+		});
+		document.getElementById('pencil-button').className = document.getElementById('pencil-button').className.replace(activePencilButton,"");
 		setDiff(diff);
 		return setPuzzle(puzzleMaker.getPuzzle(diff.toLowerCase()));
 	}
 	
-	const onKeyNumClick = (num) => {
+	function onKeyNumClick(num) {
 		if (!document.getElementById('focused-cell')) {
 			document.getElementById('instruction').innerHTML = 'Select cell first.';
 		} else if (!document.getElementById('focused-cell').readOnly) {
@@ -103,48 +99,34 @@ export default function Sudoku() {
 				pencilArr[num + num - 2] = ' ';
 				document.getElementById('btn-' + num).className = document.getElementById('btn-' + num).className.replace(toggledButtonColor,untoggledButtonColor);
 			}
-			console.log(pencilArr);
 			document.getElementById('focused-cell').value = pencilArr.join("");
 		}
 	}
 	
-	const onPencilClick = () => {
-		if (!pencilmark) {
-			setPencilmark(true);
-			const formArr = [...document.forms["sudoku-form"].elements];
-			formArr.map((cell,i) => {
-				if (cell.value == "") {
-					document.forms["sudoku-form"].elements[i].readOnly = true;
-					document.forms["sudoku-form"].elements[i].className = document.forms["sudoku-form"].elements[i].className.replace(guessTextColor,darkTextColor) + " text-[10px]";
-					if (document.forms["sudoku-form"].elements[i].id != 'focused-cell') {
-						document.forms["sudoku-form"].elements[i].value = 'click'
-					} else {
-						document.forms["sudoku-form"].elements[i].className = document.forms["sudoku-form"].elements[i].className.replace(puzzleBgColor,focusedPencilCellBg) + ' leading-none';
-						let pencilArr = [" "," "," "," "," ","\n"," "," "," "," "," ","\n"," "," "," "," "," "];
-						document.getElementById("focused-cell").value = pencilArr.join("");
-					}
-				}
-			})
-		} else if (document.getElementById('focused-cell') && 
-			document.getElementById('focused-cell').readOnly) {
-			document.getElementById('focused-cell').readOnly = false;
-			document.getElementById('focused-cell').value = "";
-			document.getElementById('focused-cell').className = document.getElementById('focused-cell').className
-			.replace(darkTextColor,guessTextColor)
-			.replace(" text-[10px]","")
-			.replace(' leading-none',"")
-			.replace(focusedPencilCellBg,puzzleBgColor);
-			numbers.map(n => {
-				document.getElementById('btn-' + n).className = document.getElementById('btn-' + n).className.replace(toggledButtonColor,untoggledButtonColor);
-			})
-		} else if (document.getElementById('focused-cell') && 
-			!document.getElementById('focused-cell').readOnly) {
-			document.getElementById('focused-cell').readOnly = true;
-			let pencilArr = [" "," "," "," "," ","\n"," "," "," "," "," ","\n"," "," "," "," "," "];
-			document.getElementById('focused-cell').value = pencilArr.join("");
-			document.getElementById('focused-cell').className = document.getElementById('focused-cell').className
-			.replace(guessTextColor,darkTextColor)
-			.replace(puzzleBgColor,focusedPencilCellBg) + " text-[10px] leading-none";
+	function onPencilClick(pencil) {
+		let focusedCell;
+		if (document.getElementById('focused-cell')) {
+			focusedCell = document.getElementById('focused-cell');
+			focusedCell.readOnly = focusedCell.readOnly ? !focusedCell.readOnly : true;
+			if (focusedCell.readOnly) {
+				pencil.className += activePencilButton;
+				const pencilArr = [" "," "," "," "," ","\n"," "," "," "," "," ","\n"," "," "," "," "," "];
+				focusedCell.value = pencilArr.join("");
+				focusedCell.className = focusedCell.className
+					.replace(guessTextColor,darkTextColor)
+					.replace(puzzleBgColor,focusedPencilCellBg) + " text-[10px] leading-none";
+			} else {
+				focusedCell.value = "";
+				focusedCell.className = focusedCell.className
+					.replace(darkTextColor,guessTextColor)
+					.replace(" text-[10px]","")
+					.replace(' leading-none',"")
+					.replace(focusedPencilCellBg,puzzleBgColor);
+					pencil.className = pencil.className.replace(activePencilButton,"");
+					numbers.map(n => {
+						document.getElementById('btn-' + n).className = document.getElementById('btn-' + n).className.replace(toggledButtonColor,untoggledButtonColor)
+					})
+			}
 		} else {
 			document.getElementById('instruction').innerHTML = 'Select cell first.';
 		}
@@ -178,28 +160,33 @@ export default function Sudoku() {
 						untoggledButtonColor={untoggledButtonColor}
 						focusedPencilCellBg={focusedPencilCellBg}
 						puzzleBgColor={puzzleBgColor}
+						activePencilButton={activePencilButton}
 						timerRef={timerRef}
 					/>
 				</div>
 				<div className='flex justify-center'>
-					{numbers.map(n => (
+					<div className='grid grid-cols-5'>
 						<button
-							id={'btn-' + n}
-							onClick={() => onKeyNumClick(n)}
-							key={"key-" + n} 
-							className={`m-0.5 mt-3 p-3 pt-1 pb-1 ${untoggledButtonColor} rounded`}
-						>{n}</button>
-					))}
+							id='pencil-button'
+							onClick={(event) => onPencilClick(event.currentTarget)}
+							className='justify-self-center my-2 px-1'
+						>
+							<Image 
+								className=''
+								src={pencilIcon}
+								alt="Pencilmark"
+							/>
+						</button>
+						{numbers.map(n => (
+							<button
+								id={'btn-' + n}
+								onClick={() => onKeyNumClick(n)}
+								key={"key-" + n} 
+								className={`mr-3 ml-1 mt-3 px-7 pr-9 sm:pr-7 py-1 ${untoggledButtonColor} rounded`}
+							>{n}</button>
+						))}
+					</div>
 				</div>
-				<button
-					onClick={() => onPencilClick()}
-					className={`${pencilmark ? "bg-blue-500 rounded-3xl p-2" : "p-2"} sticky bottom-0 m-4 sm:ml-24 lg:ml-72 mb-0`}
-				>
-					<Image 
-						src={pencilIcon}
-						alt="Pencilmark"
-					/>
-				</button>
 		</div>
 	)
 }

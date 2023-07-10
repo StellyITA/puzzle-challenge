@@ -1,8 +1,6 @@
-export default function Grid({ puzzleObj, puzzleBorderColor, focusedCellBorderColor, toggledButtonColor, untoggledButtonColor, focusedPencilCellBg, puzzleBgColor, timerRef }) {
+export default function Grid({ puzzleObj, puzzleBorderColor, focusedCellBorderColor, toggledButtonColor, untoggledButtonColor, focusedPencilCellBg, puzzleBgColor, activePencilButton, timerRef }) {
 	
-	const nums = ['1','2','3','4','5','6','7','8','9'];
-	
-	const onSubmit = (e) => {
+	function onSubmit(e) {
 		e.preventDefault();
     const sudokuForm = e.target;
     const sudokuData = new FormData(sudokuForm);
@@ -17,7 +15,7 @@ export default function Grid({ puzzleObj, puzzleBorderColor, focusedCellBorderCo
     }
 	}
 	
-	const onCellFocus = (cell) => {
+	function onCellFocus(cell) {
 		if (document.getElementById('focused-cell')) {
 			document.getElementById('focused-cell').className = document.getElementById('focused-cell').className
 			.replace(focusedCellBorderColor,puzzleBorderColor)
@@ -25,29 +23,32 @@ export default function Grid({ puzzleObj, puzzleBorderColor, focusedCellBorderCo
 			document.getElementById('focused-cell').id = '';
 		}
 		cell.id = 'focused-cell';
-		cell.className = cell.className.replace(puzzleBorderColor,focusedCellBorderColor)
-		if (cell.readOnly) cell.className = cell.className.replace(puzzleBgColor,focusedPencilCellBg);
-		console.log(cell.className)
-		if (cell.readOnly && cell.value == 'click') {
-			let pencilArr = [" "," "," "," "," ","\n"," "," "," "," "," ","\n"," "," "," "," "," "];
-			cell.value = pencilArr.join("");
-			cell.className += " leading-none";
-			nums.map(n => {
-				document.getElementById('btn-' + n).className = document.getElementById('btn-' + n).className.replace(toggledButtonColor,untoggledButtonColor);
-			})
-		} else if (cell.readOnly) {
-			nums.map(n => {
-				if (cell.value.indexOf(n) != -1) {
+		cell.className = cell.className.replace(puzzleBorderColor,focusedCellBorderColor);
+		const numbers = Array.from({ length: 9 }, (v,i) => i + 1);
+		if (cell.readOnly) {
+			if (!document.getElementById('pencil-button').className.match(activePencilButton)) document.getElementById('pencil-button').className += activePencilButton;
+			cell.className = cell.className.replace(puzzleBgColor,focusedPencilCellBg);
+			numbers.map(n => {
+				if (cell.value.match(n)) {
 					document.getElementById('btn-' + n).className = document.getElementById('btn-' + n).className.replace(untoggledButtonColor,toggledButtonColor);
 				} else {
 					document.getElementById('btn-' + n).className = document.getElementById('btn-' + n).className.replace(toggledButtonColor,untoggledButtonColor);
 				}
 			})
+		} else {
+			numbers.map(n => {
+			 document.getElementById('btn-' + n).className = document.getElementById('btn-' + n).className.replace(toggledButtonColor,untoggledButtonColor);
+			})
+			document.getElementById('pencil-button').className = document.getElementById('pencil-button').className.replace(activePencilButton,"");
 		}
 	}
 	
 	return (
-		<form id="sudoku-form" autoComplete="off" onSubmit={onSubmit}>
+		<form 
+			id="sudoku-form" 
+			autoComplete="off" 
+			onSubmit={onSubmit}
+			>
 			<div className={`aspect-square sm:h-80 bg-yellow-50 grid grid-cols-3 border-2 ${puzzleBorderColor}`}>{puzzleObj.puzzle.map((region,iReg) => (
 				<div 
 					key={"region" + iReg}
@@ -58,7 +59,7 @@ export default function Grid({ puzzleObj, puzzleBorderColor, focusedCellBorderCo
 						name='guess'
 					 	key={"cell-" + iCell + "-region" + iReg + "-removed"}
 						inputMode='none' 
-						className={`select-none resize-none aspect-square pt-1 sm:pt-0 text-center text-gray-orange bg-yellow-50 border ${puzzleBorderColor} focus:outline-none`}
+						className={`resize-none aspect-square pt-1 sm:pt-0 text-center text-gray-orange bg-yellow-50 border ${puzzleBorderColor} focus:outline-none`}
 					/> : <div
 					 	key={"cell-" + iCell + "-region-" + iReg + "-clue"}
 						className={`aspect-square flex items-center justify-center border ${puzzleBorderColor}`}
