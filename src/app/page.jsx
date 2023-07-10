@@ -2,11 +2,9 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import Layout from './layout.jsx'
+import sudokuIcon from '/public/images/sudoku.png';
 
 export default function Home() {
-
-	const games = [
-	'Sudoku'];
 	
   return (
   	<div className='grid'>
@@ -14,18 +12,17 @@ export default function Home() {
     	<div className="p-1">	
 		  	<h3 className='text-2xl'>Games</h3>
 		  	<div className='p-2 grid grid-cols-2 gap-1 sm:grid-cols-5 sm:gap-5'>
-					{games.map(e => <Link 
-						href={'/' + e.toLowerCase()}
+					<Link 
+						href='/sudoku'
 						className="hover:text-indigo-900"
-					>{e}
+					>Sudoku
 						<Image
-							key={e}
-							src={require(`/home/stelly/puzzle-challenge/public/images/${e.toLowerCase()}.png`)}
-							alt={e}
+							src={sudokuIcon}
+							alt="Sudoku"
 							width={1000}
 							height={1000}
 						/>
-					</Link>)}
+					</Link>
 		  	</div>
     	</div>
   	</div>
