@@ -49,7 +49,7 @@ export default function Sudoku() {
 			setTimer(prev => prev + 1);
 		}, 1000);
 		return () => clearInterval(timerRef.current);
-	}, [difficulty])
+	}, [puzzle])
 	
 	const minutes = Math.floor(timer/60);
 	const seconds = timer - minutes * 60;
