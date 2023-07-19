@@ -19,8 +19,6 @@ export default function Home() {
 						<Image
 							src={sudokuIcon}
 							alt="Sudoku"
-							width={1000}
-							height={1000}
 						/>
 					</Link>
 		  	</div>
