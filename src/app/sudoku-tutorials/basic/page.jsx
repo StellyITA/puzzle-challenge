@@ -12,7 +12,7 @@ export default function BasicTechniques() {
 				className='hover:text-indigo-900 active:text-indigo-900'
 			>Home</Link>
 			<h1 className='text-4xl text-center p-10 pt-0'>Basic Scanning Techniques</h1>
-			<p className='bg-yellow-50 p-1 px-2 border border-indigo-200'>Sudoku is a popular number puzzle game that requires logic and deduction to solve. The classic version consists of a 9x9 grid divided into nine 3x3 subgrids, and the objective is to fill in the grid with numbers from 1 to 9 so that each row, each column, and each subgrid contains all the digits from 1 to 9 without repetition. Let's go through the two basic scanning techniques to help you solve easy Sudoku puzzles:</p>
+			<p className='bg-yellow-50 p-1 px-2 border border-indigo-200'>{"Sudoku is a popular number puzzle game that requires logic and deduction to solve. The classic version consists of a 9x9 grid divided into nine 3x3 subgrids, and the objective is to fill in the grid with numbers from 1 to 9 so that each row, each column, and each subgrid contains all the digits from 1 to 9 without repetition. Let's go through the two basic scanning techniques to help you solve easy Sudoku puzzles:"}</p>
 			<h2 className='text-2xl pt-5 pb-1'>1. Unique Candidate</h2>
 			<p className='grid bg-yellow-50 p-1 px-2 border border-indigo-200'>
 				Scan rows, columns, or subgrids to find one where a number can only fit in one particular cell. This means no other cell in that row, column, or subgrid can have that number as a candidate.
