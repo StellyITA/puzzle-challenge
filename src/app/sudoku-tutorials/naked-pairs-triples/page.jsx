@@ -15,7 +15,7 @@ export default function nakedPairsTriples() {
 					alt='Naked Pair Example'
 					className='place-self-center p-1'
 				/>
-				In this example, we can see that in the fourth column, there are two cells with the candidates 4 and 9. So, we can remove those candidates from the other cells in the same column.
+				In this example, we can see that in the bottom-left subgrid, there are two cells with the candidates 1 and 5. So, we can remove these candidates from the other cells in the same subgrid.
 			</p>
 			<h2 className='text-xl p-1 pt-5'>2. Naked Triple</h2>
 			<p className='grid bg-yellow-50 p-1 px-2 border border-indigo-200'>
@@ -24,7 +24,7 @@ export default function nakedPairsTriples() {
 					alt='Naked Triple Example'
 					className='place-self-center p-1'
 				/>
-				In the fourth subgrid, we have three cells with only 2, 3 and 7 as possible candidates. We can safely remove these candidates from the other cells in the same subgrid.
+				In the middle-left subgrid, we have three cells with only 2, 3 and 7 as possible candidates. We can safely remove these candidates from the other cells in the same subgrid.
 			</p>
 		</div>
 	)
