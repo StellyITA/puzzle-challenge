@@ -4,6 +4,7 @@ import Image from 'next/image';
 import basicTechniquesIcon from '/public/images/tutorials/unique-candidate.png'
 import pointingPairsIcon from '/public/images/tutorials/pointing-pairs.png'
 import doublePairsIcon from '/public/images/tutorials/double-pairs.png'
+import nakedPairsIcon from '/public/images/tutorials/naked-pairs.png';
 
 export default function SudokuTutorials() {
 	return (
@@ -53,6 +54,21 @@ export default function SudokuTutorials() {
 							<Image
 								src={doublePairsIcon}
 								alt='Double Pointing Pairs'
+							/>
+						</Link>
+					</li>
+				
+					<li className='pb-5'>
+						<Link 
+							href={'/sudoku-tutorials/naked-pairs-triples'}
+							className="hover:text-indigo-900 active:text-indigo-900"
+						>
+							<div className='grid'>
+								<h2 className='place-self-center text-xl p-1'>Naked Pairs/Triples</h2>
+							</div>
+							<Image
+								src={nakedPairsIcon}
+								alt='Naked Pairs/Triples'
 							/>
 						</Link>
 					</li>
