@@ -1,8 +1,9 @@
-import { puzzles } from '../collections/sudoku-collection.js';
+import { sudokuCollection } from '../collections/sudoku-collection.js';
 
 export function getPuzzle(dif) {
 	let solution;
 	let puzzle;
+	let puzzles = sudokuCollection();
 	let i = Math.floor(Math.random() * puzzles[dif].length); 
 	if (dif == "easy") {
 		let obj = puzzles.easy[i];
