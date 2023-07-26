@@ -20,7 +20,7 @@ export default function Sudoku() {
 	const darkTextColor = "text-indigo-dark";
 	const guessTextColor = "text-gray-orange";
 	const toggledButtonColor = "bg-blue-600 active:bg-blue-700 hover:bg-blue-700 border border-blue-800 text-white";
-	const untoggledButtonColor = 'bg-indigo-50 active:bg-indigo-200 hover:bg-indigo-200 border border-indigo-300';
+	const untoggledButtonColor = 'bg-indigo-200 active:bg-indigo-300 hover:bg-indigo-300 border border-indigo-400';
 	const focusedPencilCellBg = 'bg-yellow-200';
 	const activePencilButton = " bg-blue-600 rounded-3xl";
 	

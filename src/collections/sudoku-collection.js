@@ -207,7 +207,7 @@ export function sudokuCollection() {
 					[h,a,b,f,i,d,e,c,g],[i,g,e,c,a,h,f,b,d],[c,d,f,b,e,g,a,i,h],
 					[i,g,a,b,d,h,c,f,e],[e,f,c,g,i,a,d,h,b],[h,b,d,f,c,e,i,g,a]
 				],
-				// swordFish 3-3-3, 59
+				// swordFish 3-3-3, 56 (something is not looking good)
 				puzzle: [
 					[a,"","","","",f,"","",i],["",e,"","","",i,b,"",""],["","",i,"","",b,"","",""],
 					["","",b,"","","",e,c,""],[i,"","","",a,"","","",d],["",d,f,"","","",a,"",""],
