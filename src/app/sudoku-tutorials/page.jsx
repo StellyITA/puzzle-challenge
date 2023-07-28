@@ -9,6 +9,7 @@ import hiddenPairsExample from '/public/images/tutorials/hidden-pairs.png';
 import xWingExample from '/public/images/tutorials/x-wing2.png';
 import xyWingExample from '/public/images/tutorials/y-wing.png';
 import swordfishExample from '/public/images/tutorials/swordfish2.png';
+import guessworkExample from '/public/images/tutorials/guesswork2.png';
 
 export default function SudokuTutorials() {
 	return (
@@ -133,6 +134,21 @@ export default function SudokuTutorials() {
 							<Image
 								src={swordfishExample}
 								alt='Swordfish'
+							/>
+						</Link>
+					</li>
+				
+					<li className='pb-5'>
+						<Link 
+							href={'/sudoku-tutorials/guesswork'}
+							className="hover:text-indigo-900 active:text-indigo-900"
+						>
+							<div className='grid'>
+								<h2 className='place-self-center text-xl p-1'>Guesswork</h2>
+							</div>
+							<Image
+								src={guessworkExample}
+								alt='Guesswork'
 							/>
 						</Link>
 					</li>

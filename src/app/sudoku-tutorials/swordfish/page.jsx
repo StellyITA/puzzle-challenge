@@ -14,7 +14,7 @@ export default function swordfish() {
 					alt='Swordfish Example Part 1'
 					className='place-self-center p-1'
 				/>
-				In the second, sixth, and eighth columns, the candidate 4 can only be found in the second, fourth, and fifth rows, respectively. This means that in each of these three rows, the candidate 4 must be in one of those three cells. Knowing this, we can confidently remove the candidate 4 from all the other cells in the same rows.
+				In the second, sixth, and eighth columns, the candidate 4 can only be found in the second, fourth, and fifth rows, respectively. This means that in each of these three rows, the candidate 4 must be in one of those three cells. Knowing this, we can confidently remove the candidate 4 from all the other cells in the same rows:
 				<Image 
 					src={swordfishExample2}
 					alt='Swordfish Example Part 2'
