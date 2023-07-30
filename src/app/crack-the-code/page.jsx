@@ -167,7 +167,7 @@ export default function crackTheCode() {
 					{Array.from({length: code.length}, v => 8).join("")}
 					<div 
 						id="guess-screen"
-						className="absolute inset-0 text-red-500"
+						className="absolute pt-1 inset-0 text-red-500"
 					>{guess}</div>
 				</div>
 				<div className='place-self-center bg-gray-300 px-7 rounded-[100%] border-2 border-gray-900'>
