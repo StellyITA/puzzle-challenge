@@ -28,10 +28,10 @@ export default function Home() {
 					<Link 
 						href='/crack-the-code'
 						className="hover:text-indigo-900"
-					>Crack The Code
+					>Crack the Code
 						<Image
 							src={ctcIcon}
-							alt="Crack The Code"
+							alt="Crack the Code"
 						/>
 					</Link>
 					
