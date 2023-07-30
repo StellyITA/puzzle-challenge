@@ -4,7 +4,7 @@ import guessworkExample1 from '/public/images/tutorials/guesswork1.png';
 import guessworkExample2 from '/public/images/tutorials/guesswork2.png';
 import guessworkExample3 from '/public/images/tutorials/guesswork3.png';
 
-export default function swordfish() {
+export default function guesswork() {
 	return (
 		<div>
 			<h1 className='text-4xl text-center p-10 pt-0'>Guesswork</h1>

@@ -15,6 +15,9 @@ module.exports = {
 					orange: '#6F6F60'
 				}
 			},
+			fontFamily: {
+				'digital': ['Digital']
+			}
 		},
   },
   plugins: []

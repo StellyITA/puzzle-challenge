@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import Layout from './layout.jsx'
 import sudokuIcon from '/public/images/sudoku.png';
+import ctcIcon from '/public/images/crack-the-code.png';
 import sudokuTutorialsIcon from '/public/images/tutorials/single-possibility.png';
 
 export default function Home() {
@@ -23,6 +24,17 @@ export default function Home() {
 							alt="Sudoku"
 						/>
 					</Link>
+					
+					<Link 
+						href='/crack-the-code'
+						className="hover:text-indigo-900"
+					>Crack The Code
+						<Image
+							src={ctcIcon}
+							alt="Crack The Code"
+						/>
+					</Link>
+					
 		  	</div>
     	</div>
     	
