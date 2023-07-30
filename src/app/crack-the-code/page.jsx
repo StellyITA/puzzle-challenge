@@ -178,7 +178,7 @@ export default function crackTheCode() {
 				</div>
 				<div className='rounded-xl bg-gray-300 m-1 p-1 col-span-2 grid grid-cols-4'>
 					{keyboardArr.map(k => (<button 
-						className={`bg-gray-800 active:bg-gray-900 text-white py-2 m-2 rounded-xl ${typeof k == "string" ? "text-[3cqw] sm:text-[2cqw] md:text-[1cqw]" : ""}`}
+						className={`bg-gray-800 active:bg-gray-900 text-white py-2 m-2 rounded-xl ${typeof k == "string" ? "text-xs" : ""}`}
 						onClick={() => onKeyClick(k)}
 						key={k}
 					>{k}</button>))}
