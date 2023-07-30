@@ -163,7 +163,7 @@ export default function crackTheCode() {
 						className={`m-2 px-2.5 rounded-[100%] ${rightLightOff}`}
 					/>
 				</div> 
-				<div className="relative bg-gray-900 text-[#200000] text-[7cqh] place-self-center font-digital m-1 col-span-2">
+				<div className="relative bg-gray-900 text-[#200000] text-5xl pb-2 py-1 place-self-center font-digital m-1 col-span-2">
 					{Array.from({length: code.length}, v => 8).join("")}
 					<div 
 						id="guess-screen"
