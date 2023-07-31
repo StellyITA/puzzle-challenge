@@ -6,3 +6,11 @@
   font-family: Digital;
   src: url("../../public/fonts/digital.woff") format("opentype");
 }
+
+@layer base {
+
+	button,a {
+		-webkit-tap-highlight-color: transparent;
+	}
+	
+}

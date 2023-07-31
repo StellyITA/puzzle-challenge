@@ -119,7 +119,7 @@ export default function crackTheCode() {
 				setGuess("");
 			} else {
 				openSafePlay();
-				document.getElementById("handle").className = document.getElementById("handle").className.replace("bg-gradient-to-tr ","bg-gradient-to-t ") + " rotate-45";
+				document.getElementById("handle").className = "rotate-90 " + document.getElementById("handle").className.replace('shadow-[inset_5px_-5px_10px_#a0a0a0]',"shadow-[inset_-5px_-5px_10px_#a0a0a0]");
 				document.getElementById("right-light").className = document.getElementById("right-light").className.replace(rightLightOff,rightLightOn);
 				setTimeout(correctCodePlay,750);
 			}
@@ -127,7 +127,7 @@ export default function crackTheCode() {
 	}
 	
 	function onDiffClick(diff) {
-		document.getElementById("handle").className = document.getElementById("handle").className.replace("bg-gradient-to-t ","bg-gradient-to-tr ").replace(" rotate-45","");
+		document.getElementById("handle").className = document.getElementById("handle").className.replace('shadow-[inset_-5px_-5px_10px_#a0a0a0]','shadow-[inset_5px_-5px_10px_#a0a0a0]').replaceAll("rotate-90 ","");
 		document.getElementById("wrong-light").className = document.getElementById("wrong-light").className.replace(wrongLightOn,wrongLightOff);
 		document.getElementById("right-light").className = document.getElementById("right-light").className.replace(rightLightOn,rightLightOff);
 		document.getElementById('hints').innerHTML = "";
@@ -156,14 +156,14 @@ export default function crackTheCode() {
 				<div>
 					<span 
 						id="wrong-light"
-						className={`m-2 px-2.5 rounded-[100%] ${wrongLightOff}`}
+						className={`shadow-[1px_-1px_1px_0px_#2A2A3F] border border-[#2A2A3F] m-2 px-2.5 rounded-[100%] ${wrongLightOff}`}
 					/>
 					<span
 						id="right-light" 
-						className={`m-2 px-2.5 rounded-[100%] ${rightLightOff}`}
+						className={`shadow-[1px_-1px_1px_0px_#2A2A3F] border border-[#2A2A3F] m-2 px-2.5 rounded-[100%] ${rightLightOff}`}
 					/>
 				</div> 
-				<div className="relative bg-gray-900 text-[#200000] text-5xl pb-2 py-1 place-self-center font-digital m-1 col-span-2">
+				<div className="relative shadow-[1px_-1px_1px_1px_#0A0A1F] border border-[#0A0A1F] bg-gray-900 text-[#200000] text-5xl pb-2 py-1 place-self-center font-digital m-1 col-span-2">
 					{Array.from({length: code.length}, v => 8).join("")}
 					<div 
 						id="guess-screen"
@@ -173,12 +173,12 @@ export default function crackTheCode() {
 				<div className='place-self-center bg-gray-300 px-7 rounded-[100%] border-2 border-gray-900'>
 					<div 
 						id='handle'
-						className='py-10 px-3 border border-gray-400 rounded-t-2xl rounded-b-2xl bg-gradient-to-tr from-gray-400 to-gray-50'
+						className='shadow-[inset_5px_-5px_10px_#a0a0a0] py-10 px-3 border border-gray-400 rounded-t-2xl rounded-b-2xl'
 					/>
 				</div>
 				<div className='rounded-xl bg-gray-300 m-1 p-1 col-span-2 grid grid-cols-4'>
 					{keyboardArr.map(k => (<button 
-						className={`bg-gray-800 active:bg-gray-900 text-white py-2 m-2 rounded-xl ${typeof k == "string" ? "text-xs" : ""}`}
+						className={`shadow-[inset_3px_-3px_3px_#1A1A1A] active:shadow-[inset_-2px_2px_2px_black] bg-gray-800 active:bg-gray-900 text-white py-2 m-2 rounded-xl ${typeof k == "string" ? "text-xs" : ""}`}
 						onClick={() => onKeyClick(k)}
 						key={k}
 					>{k}</button>))}
