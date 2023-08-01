@@ -10,6 +10,7 @@ import xWingExample from '/public/images/tutorials/x-wing2.png';
 import xyWingExample from '/public/images/tutorials/y-wing.png';
 import swordfishExample from '/public/images/tutorials/swordfish2.png';
 import guessworkExample from '/public/images/tutorials/guesswork2.png';
+import pencilMarkExample from '/public/images/tutorials/pencilmarks.png';
 
 export default function SudokuTutorials() {
 	return (
@@ -59,6 +60,21 @@ export default function SudokuTutorials() {
 							<Image
 								src={doublePairsExample}
 								alt='Double Pointing Pairs'
+							/>
+						</Link>
+					</li>
+				
+					<li className='pb-5'>
+						<Link 
+							href={'/sudoku-tutorials/pencil-marks'}
+							className="hover:text-indigo-900 active:text-indigo-900"
+						>
+							<div className='grid'>
+								<h2 className='place-self-center text-xl p-1'>Pencil Marks</h2>
+							</div>
+							<Image
+								src={pencilMarkExample}
+								alt='Pencil Mark'
 							/>
 						</Link>
 					</li>

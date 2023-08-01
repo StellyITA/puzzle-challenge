@@ -119,7 +119,7 @@ export default function crackTheCode() {
 				setGuess("");
 			} else {
 				openSafePlay();
-				document.getElementById("handle").className = "rotate-90 " + document.getElementById("handle").className.replace('shadow-[inset_5px_-5px_10px_#9090a0]',"shadow-[inset_-5px_-5px_10px_#9090a0]").replace('border-r-gray-300',"border-l-gray-300");
+				document.getElementById("handle").className = "rotate-90 " + document.getElementById("handle").className.replace('shadow-[inset_5px_-5px_10px_#9090a0]',"shadow-[inset_-5px_-5px_10px_#9090a0]");
 				document.getElementById("right-light").className = document.getElementById("right-light").className.replace(rightLightOff,rightLightOn);
 				setTimeout(correctCodePlay,750);
 			}
@@ -127,7 +127,7 @@ export default function crackTheCode() {
 	}
 	
 	function onDiffClick(diff) {
-		document.getElementById("handle").className = document.getElementById("handle").className.replace('shadow-[inset_-5px_-5px_10px_#9090a0]','shadow-[inset_5px_-5px_10px_#9090a0]').replaceAll("rotate-90 ","").replace('border-l-gray-300','border-r-gray-400');
+		document.getElementById("handle").className = document.getElementById("handle").className.replace('shadow-[inset_-5px_-5px_10px_#9090a0]','shadow-[inset_5px_-5px_10px_#9090a0]').replaceAll("rotate-90 ","");
 		document.getElementById("wrong-light").className = document.getElementById("wrong-light").className.replace(wrongLightOn,wrongLightOff);
 		document.getElementById("right-light").className = document.getElementById("right-light").className.replace(rightLightOn,rightLightOff);
 		document.getElementById('hints').innerHTML = "";
@@ -173,7 +173,7 @@ export default function crackTheCode() {
 				<div className='place-self-center bg-gray-300 px-7 rounded-[100%] border-2 border-gray-900'>
 					<div 
 						id='handle'
-						className='shadow-[inset_5px_-5px_10px_#9090a0] py-10 px-3 border border-gray-400 border-t-gray-300 border-r-gray-300 rounded-t-2xl rounded-b-2xl'
+						className='shadow-[inset_5px_-5px_10px_#9090a0] py-10 px-3 rounded-t-2xl rounded-b-2xl'
 					/>
 				</div>
 				<div className='rounded-xl bg-gray-300 m-1 p-1 col-span-2 grid grid-cols-4'>

@@ -31,7 +31,10 @@ export default function crackTheCode() {
 				
 				<p className='p-5'>So, go ahead and test your skills at different difficulty levels, from the straightforward 'Easy' mode to the challenging 'Expert' mode. Sharpen your mind, embrace the excitement, and relish the satisfaction of discovering the secret codes.</p>
 			</div>
-			<button className='place-self-center text-lg text-white w-1/2 mb-1 pb-1 bg-blue-600 rounded border border-blue-800 hover:bg-blue-700 active:bg-blue-700'>Play Crack the Code</button>
+			<Link 
+				className='place-self-center text-3xl text-white mb-1 pb-1 px-1 bg-blue-600 rounded border border-blue-800 hover:bg-blue-700 active:bg-blue-700'
+				href='/crack-the-code'
+			>Play Crack the Code</Link>
 		</div>
 	)
 }
