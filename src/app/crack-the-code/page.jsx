@@ -139,10 +139,15 @@ export default function crackTheCode() {
 	
 	return (
 		<div className='grid'>
-			<Link 
-				href='/'
-				className='hover:text-indigo-900 active:text-indigo-900'
-			>Home</Link>
+			<div className='grid grid-cols-2'>
+				<Link 
+					href='/'
+					className='justify-self-start px-5 hover:text-indigo-900 active:text-indigo-900'
+				>Home</Link><Link 
+					href='/ctc-tutorial'
+					className='justify-self-end px-5 hover:text-indigo-900 active:text-indigo-900'
+				>Tutorial</Link>
+			</div>
 			<div className='grid grid-cols-4 sm:pr-36 sm:pl-36 md:pr-48 md:pl-48 lg:pr-80 lg:pl-80'>
 				{difficulties.map(diff => (
 					<button

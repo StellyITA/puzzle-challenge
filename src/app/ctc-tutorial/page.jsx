@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import crackTheCodeExample from '/public/images/tutorials/crack-the-code.png'
+import crackTheCodeExample from '/public/images/tutorials/crack-the-code.jpg'
 
 export default function crackTheCode() {
 	return (

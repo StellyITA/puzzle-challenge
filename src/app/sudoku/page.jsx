@@ -133,10 +133,15 @@ export default function Sudoku() {
 	
 	return (
 		<div className='h-screen'>
-			<Link 
-				href='/'
-				className='ml-1 hover:text-indigo-900'
-			>Home</Link>
+			<div className='grid grid-cols-2'>
+				<Link 
+					href='/'
+					className='justify-self-start px-5 hover:text-indigo-900 active:text-indigo-900'
+				>Home</Link><Link 
+					href='/sudoku-tutorials'
+					className='justify-self-end px-5 hover:text-indigo-900 active:text-indigo-900'
+				>Tutorials</Link>
+			</div>
 				<div className='p-1 text-center border border-indigo-200 m-1 sm:mr-36 sm:ml-36 md:mr-48 md:ml-48 sm:mr-36 sm:ml-36 lg:mr-72 lg:ml-72 bg-yellow-50'>
 					<p id='instruction'>Select difficulty.</p>
 					{minutes < 10 ? "0" + minutes : minutes}:{seconds < 10 ? '0' + seconds : seconds}

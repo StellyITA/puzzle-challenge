@@ -5,7 +5,7 @@ import Layout from './layout.jsx'
 import sudokuExample from '/public/images/sudoku.png';
 import ctcExample from '/public/images/crack-the-code.png';
 import sudokuTutorialsExample from '/public/images/tutorials/single-possibility.png';
-import crackTheCodeExample from '/public/images/tutorials/crack-the-code.png'
+import crackTheCodeExample from '/public/images/tutorials/crack-the-code.jpg'
 
 export default function Home() {
 	
