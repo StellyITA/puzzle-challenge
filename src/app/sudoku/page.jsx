@@ -36,6 +36,8 @@ export default function Sudoku() {
 	
 	const [timer,setTimer] = useState(0);
 	
+	const [completed,setCompleted] = useState(false);
+	
 	//Hooks
 	
 	const timerRef = useRef();
@@ -57,6 +59,7 @@ export default function Sudoku() {
 	//Event handlers
 	
 	function onDiffClick(diff) {
+		setCompleted(false);
 		setTimer(0);
 		document.getElementById("sudoku-form").reset();
 		document.getElementById("instruction").innerHTML = "Enjoy!";
@@ -169,6 +172,8 @@ export default function Sudoku() {
 						difficulty={difficulty}
 						minutes={minutes}
 						seconds={seconds}
+						completed={completed}
+						setCompleted={setCompleted}
 					/>
 				</div>
 				<div className='flex justify-center'>

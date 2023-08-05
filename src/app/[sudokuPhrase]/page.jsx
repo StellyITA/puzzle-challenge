@@ -1,4 +1,3 @@
-import redirect from 'next/navigation'
 import FacebookLandingPage from '../../components/FacebookLandingPage.jsx'
 
 export default function SudokuPhrase({ params }) {

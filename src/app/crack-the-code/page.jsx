@@ -191,7 +191,7 @@ export default function crackTheCode() {
 			</div>
 			<div 
 				id="hints"
-				className='place-self-center text-justify'
+				className='place-self-center text-justify font-digital bg-gray-900 border-8 border-gray-500'
 			/>
 		</div>
 	)

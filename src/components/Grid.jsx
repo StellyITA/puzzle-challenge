@@ -1,14 +1,10 @@
-import { useState } from 'react';
-
-
 import {
   FacebookShareButton,
   FacebookIcon,
 } from 'next-share'
 
-export default function Grid({ puzzleObj, puzzleBorderColor, focusedCellBorderColor, toggledButtonColor, untoggledButtonColor, focusedPencilCellBg, puzzleBgColor, activePencilButton, timerRef, difficulty, minutes, seconds }) {
+export default function Grid({ puzzleObj, puzzleBorderColor, focusedCellBorderColor, toggledButtonColor, untoggledButtonColor, focusedPencilCellBg, puzzleBgColor, activePencilButton, timerRef, difficulty, minutes, seconds, completed, setCompleted }) {
 	
-	const [completed,setCompleted] = useState(false);
 	
 	function onSubmit(e) {
 		e.preventDefault();
@@ -82,7 +78,7 @@ export default function Grid({ puzzleObj, puzzleBorderColor, focusedCellBorderCo
 					id='share-buttons'
 					className='bg-yellow-50 border border-indigo-200 grid place-content-center'
 				>{completed ? (<FacebookShareButton 
-					url={`https://puzzle-challenge.vercel.app/I have completed a${difficulty == "Easy" || difficulty == "Expert" ? "n" : ""} Sudoku in ${minutes} minute${minutes != 1 ? "s" : ""} and ${seconds} second${seconds != 1 ? "s" : ""}! Can you do better`}
+					url={`https://puzzle-challenge.vercel.app/I completed a${difficulty == "Easy" || difficulty == "Expert" ? "n" : ""} Sudoku in ${minutes} minute${minutes != 1 ? "s" : ""} and ${seconds} second${seconds != 1 ? "s" : ""}! Can you do better`}
 					hashtag={'#sudoku'}
 				>
 					<FacebookIcon size={32} round className='my-1'/>
