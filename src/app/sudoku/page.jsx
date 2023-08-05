@@ -166,6 +166,9 @@ export default function Sudoku() {
 						puzzleBgColor={puzzleBgColor}
 						activePencilButton={activePencilButton}
 						timerRef={timerRef}
+						difficulty={difficulty}
+						minutes={minutes}
+						seconds={seconds}
 					/>
 				</div>
 				<div className='flex justify-center'>
