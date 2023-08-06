@@ -4,6 +4,11 @@ import { useSound } from 'use-sound';
 import { useState } from 'react';
 import Link from 'next/link';
 
+import {
+  FacebookShareButton,
+  FacebookIcon,
+} from 'next-share'
+
 export default function crackTheCode() {
 	
 	function getCode(difficulty) {
@@ -63,6 +68,7 @@ export default function crackTheCode() {
 	const [guess,setGuess] = useState("");
 	const [difficulty,setDiff] = useState(difficulties[0]);
 	const [attempts,setAttempts] = useState(7);
+	const [safeIsOpen,setSafeIsOpen] = useState(false);
 	
 	
 	// Hooks
@@ -124,6 +130,7 @@ export default function crackTheCode() {
 					setGuess("Err");
 				}
 			} else if (guess == code) {
+				setSafeIsOpen(true);
 				openSafePlay();
 				document.getElementById("handle").className = "rotate-90 " + document.getElementById("handle").className.replace('shadow-[inset_5px_-5px_10px_#9090a0]',"shadow-[inset_-5px_-5px_10px_#9090a0]");
 				document.getElementById("right-light").className = document.getElementById("right-light").className.replace(rightLightOff,rightLightOn);
@@ -133,6 +140,7 @@ export default function crackTheCode() {
 	}
 	
 	function onDiffClick(diff) {
+		setSafeIsOpen(false);
 		document.getElementById("handle").className = document.getElementById("handle").className.replace('shadow-[inset_-5px_-5px_10px_#9090a0]','shadow-[inset_5px_-5px_10px_#9090a0]').replaceAll("rotate-90 ","");
 		document.getElementById("wrong-light").className = document.getElementById("wrong-light").className.replace(wrongLightOn,wrongLightOff);
 		document.getElementById("right-light").className = document.getElementById("right-light").className.replace(rightLightOn,rightLightOff);
@@ -209,9 +217,16 @@ export default function crackTheCode() {
 				</div>
 			<p className='text-center shadow-[1px_-1px_1px_1px_#0A0A1F] border border-[#0A0A1F] bg-gray-900 text-xs text-red-500 pb-2 py-1 place-self-center font-digital m-1'>{`Attempts left (${attempts})`}</p>
 			</div>
-			<div 
-				id="hints"
-			/>
+			{safeIsOpen ? (<div 
+				id='share-buttons'
+				className='sticky mx-10 bg-yellow-50 border border-indigo-200 grid place-content-center'
+			><FacebookShareButton 
+				url={`https://puzzle-challenge.vercel.app/I cracked a${difficulty == "Easy" || difficulty == "Expert" ? "n" : ""} ${difficulty} code in ${difficulty == "Easy" ? 7 - attempts : difficulty == "Medium" ? 8 - attempts : difficulty == "Hard" ? 9 - attempts : 10 - attempts} attempts! Can you do better`}
+				hashtag={'#crackthecode'}
+			>
+				<FacebookIcon size={32} round className='my-1'/>
+			</FacebookShareButton></div>) : ""}
+			<div id="hints"/>
 		</div>
 	)
 }

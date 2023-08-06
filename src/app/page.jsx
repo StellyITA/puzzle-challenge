@@ -11,8 +11,8 @@ import crackTheCodeExample from '/public/images/tutorials/crack-the-code.jpg'
 export default function Home() {
 	
   return (
-  	<div className='grid bg-mosaic h-full portrait:h-screen'>
-    	<h1 className={`text-center text-indigo-100 p-5 text-4xl bg-indigo-900 border border-[#010030] shadow-[inset_0px_-5px_20px_0px_#010030] font-mosaic`}>Puzzle Challenge</h1>
+  	<div className='grid bg-mosaic h-full'>
+    	<h1 className={`text-center text-indigo-100 p-5 text-4xl bg-blue-900 border border-[#010030] shadow-[inset_0px_-5px_20px_0px_#010030] font-mosaic`}>Puzzle Challenge</h1>
     	
     	<div className="p-1 pt-5">	
 		  	<h2 className='text-2xl font-mosaic'>Games</h2>
