@@ -7,6 +7,11 @@
   src: url("../../public/fonts/digital.woff") format("opentype");
 }
 
+@font-face { 
+	font-family: Palette Mosaic;
+	src: url('/fonts/mosaic.ttf');
+}
+
 @layer base {
 
 	button,a {

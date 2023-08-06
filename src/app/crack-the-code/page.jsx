@@ -62,6 +62,7 @@ export default function crackTheCode() {
 	const [code,setCode] = useState(getCode("Easy"));
 	const [guess,setGuess] = useState("");
 	const [difficulty,setDiff] = useState(difficulties[0]);
+	const [attempts,setAttempts] = useState(7);
 	
 	
 	// Hooks
@@ -88,7 +89,8 @@ export default function crackTheCode() {
 				return guessArr.join("");
 			});
 		} else if (k == "Open") {
-			if (guess != code) {
+			if (guess != code && attempts > 0) {
+				setAttempts(prev => prev - 1);
 				wrongCodePlay();
 				document.getElementById("wrong-light").className = document.getElementById("wrong-light").className.replace(wrongLightOff,wrongLightOn);
 				let sameNumSameIndex = 0;
@@ -110,14 +112,18 @@ export default function crackTheCode() {
 						guessArr[i] = "checked";
 					}
 				}
-				let hintParagraph = document.createElement("p");
-				hintParagraph.className = "p-1";
-				hintString = `${guess} - ${sameNumSameIndex} number${sameNumSameIndex > 1 || sameNumSameIndex == 0 ? "s" : ""} ${sameNumSameIndex > 1 || sameNumSameIndex == 0 ? "are" : "is"} right and in the correct position, ${sameNumDiffIndex} number${sameNumDiffIndex > 1 || sameNumDiffIndex == 0 ? "s" : ""} ${sameNumDiffIndex > 1 || sameNumDiffIndex == 0 ? "are" : "is"} right but in the wrong position.`
-				hintParagraph.textContent = hintString;
-				document.getElementById("hints").append(hintParagraph);
-				window.scrollTo(0,document.body.scrollHeight);
-				setGuess("");
-			} else {
+				if (attempts > 1) {	
+					let hintParagraph = document.createElement("p");
+					hintParagraph.className = "p-1";
+					hintString = `${guess} - ${sameNumSameIndex} number${sameNumSameIndex > 1 || sameNumSameIndex == 0 ? "s" : ""} ${sameNumSameIndex > 1 || sameNumSameIndex == 0 ? "are" : "is"} right and in the correct position, ${sameNumDiffIndex} number${sameNumDiffIndex > 1 || sameNumDiffIndex == 0 ? "s" : ""} ${sameNumDiffIndex > 1 || sameNumDiffIndex == 0 ? "are" : "is"} right but in the wrong position.`
+					hintParagraph.textContent = hintString;
+					document.getElementById("hints").append(hintParagraph);
+					window.scrollTo(0,document.body.scrollHeight);
+					setGuess("");
+				} else {
+					setGuess("Err");
+				}
+			} else if (guess == code) {
 				openSafePlay();
 				document.getElementById("handle").className = "rotate-90 " + document.getElementById("handle").className.replace('shadow-[inset_5px_-5px_10px_#9090a0]',"shadow-[inset_-5px_-5px_10px_#9090a0]");
 				document.getElementById("right-light").className = document.getElementById("right-light").className.replace(rightLightOff,rightLightOn);
@@ -134,6 +140,19 @@ export default function crackTheCode() {
 		setGuess("");
 		setCode(getCode(diff));
 		setDiff(diff);
+		switch (diff) {
+			case "Easy":
+				setAttempts(7);
+				break;
+			case "Medium":
+				setAttempts(8);
+				break;
+			case "Hard":
+				setAttempts(9);
+				break;
+			default:
+				setAttempts(10);
+		}
 	}
 	
 	
@@ -188,10 +207,10 @@ export default function crackTheCode() {
 						key={k}
 					>{k}</button>))}
 				</div>
+			<p className='text-center shadow-[1px_-1px_1px_1px_#0A0A1F] border border-[#0A0A1F] bg-gray-900 text-xs text-red-500 pb-2 py-1 place-self-center font-digital m-1'>{`Attempts left (${attempts})`}</p>
 			</div>
 			<div 
 				id="hints"
-				className='place-self-center text-justify font-digital bg-gray-900 border-8 border-gray-500'
 			/>
 		</div>
 	)

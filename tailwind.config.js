@@ -16,7 +16,11 @@ module.exports = {
 				}
 			},
 			fontFamily: {
-				'digital': ['Digital']
+				'digital': ['Digital'],
+				'mosaic': ['Palette Mosaic']
+			},
+			backgroundImage : {
+				'mosaic': "url('/images/mosaic.png')"
 			}
 		},
   },

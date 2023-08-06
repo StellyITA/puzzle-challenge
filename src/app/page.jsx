@@ -7,14 +7,15 @@ import ctcExample from '/public/images/crack-the-code.png';
 import sudokuTutorialsExample from '/public/images/tutorials/single-possibility.png';
 import crackTheCodeExample from '/public/images/tutorials/crack-the-code.jpg'
 
+
 export default function Home() {
 	
   return (
-  	<div className='grid'>
-    	<h1 className='place-self-center p-3 text-4xl'>Puzzle Challenge</h1>
+  	<div className='grid bg-mosaic h-full portrait:h-screen'>
+    	<h1 className={`text-center text-indigo-100 p-5 text-4xl bg-indigo-900 border border-[#010030] shadow-[inset_0px_-5px_20px_0px_#010030] font-mosaic`}>Puzzle Challenge</h1>
     	
-    	<div className="p-1">	
-		  	<h2 className='text-2xl'>Games</h2>
+    	<div className="p-1 pt-5">	
+		  	<h2 className='text-2xl font-mosaic'>Games</h2>
 		  	<div className='p-2 grid grid-cols-2 gap-1 sm:grid-cols-5 sm:gap-5'>
 					<Link 
 						href='/sudoku'
@@ -40,7 +41,7 @@ export default function Home() {
     	</div>
     	
     	<div className="p-1 pt-10">	
-		  	<h2 className='text-2xl'>Tutorials</h2>
+		  	<h2 className='text-2xl font-mosaic'>Tutorials</h2>
 		  	<div className='p-2 grid grid-cols-2 gap-1 sm:grid-cols-5 sm:gap-5'>
 		  	
 					<Link 

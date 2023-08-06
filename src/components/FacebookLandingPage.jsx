@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function FacebookLandingPage() {
 	return (
-		<div className='h-screen grid place-content-center content-center'>
+		<div className='h-screen grid place-content-center content-center bg-mosaic'>
 			<h1 className='text-4xl text-center pb-5'>Welcome to Puzzle Challenge!</h1>
 			<Link 
 				href='/'
