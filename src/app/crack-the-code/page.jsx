@@ -184,48 +184,50 @@ export default function crackTheCode() {
 					>{diff}</button>
 				))}
 			</div>
-			<div className='sticky top-0 grid grid-cols-3 bg-gray-700 p-1 m-1 rounded-xl lg:p-10 lg:mx-52 xl:mx-64'>
-				<div>
-					<span 
-						id="wrong-light"
-						className={`shadow-[1px_-1px_1px_0px_#2A2A3F] border border-[#2A2A3F] m-2 px-2.5 rounded-[100%] ${wrongLightOff}`}
-					/>
-					<span
-						id="right-light" 
-						className={`shadow-[1px_-1px_1px_0px_#2A2A3F] border border-[#2A2A3F] m-2 px-2.5 rounded-[100%] ${rightLightOff}`}
-					/>
-				</div> 
-				<div className="relative shadow-[1px_-1px_1px_1px_#0A0A1F] border border-[#0A0A1F] bg-gray-900 text-[#200000] text-[2.6rem] pb-2 py-1 place-self-center font-digital m-1 col-span-2">
-					{Array.from({length: code.length}, v => 8).join("")}
-					<div 
-						id="guess-screen"
-						className="absolute pt-1 inset-0 text-red-500"
-					>{guess}</div>
+			<div className='sticky top-0'>
+				<div className='grid grid-cols-3 bg-gray-700 p-1 m-1 rounded-xl lg:p-10 lg:mx-52 xl:mx-64'>
+					<div>
+						<span 
+							id="wrong-light"
+							className={`shadow-[1px_-1px_1px_0px_#2A2A3F] border border-[#2A2A3F] m-2 px-2.5 rounded-[100%] ${wrongLightOff}`}
+						/>
+						<span
+							id="right-light" 
+							className={`shadow-[1px_-1px_1px_0px_#2A2A3F] border border-[#2A2A3F] m-2 px-2.5 rounded-[100%] ${rightLightOff}`}
+						/>
+					</div> 
+					<div className="relative shadow-[1px_-1px_1px_1px_#0A0A1F] border border-[#0A0A1F] bg-gray-900 text-[#200000] text-[2.6rem] pb-2 py-1 place-self-center font-digital m-1 col-span-2">
+						{Array.from({length: code.length}, v => 8).join("")}
+						<div 
+							id="guess-screen"
+							className="absolute pt-1 inset-0 text-red-500"
+						>{guess}</div>
+					</div>
+					<div className='place-self-center bg-gray-300 px-7 rounded-[100%] border-2 border-gray-900'>
+						<div 
+							id='handle'
+							className='shadow-[inset_5px_-5px_10px_#9090a0] py-10 px-3 rounded-t-2xl rounded-b-2xl'
+						/>
+					</div>
+					<div className='rounded-xl bg-gray-300 m-1 p-1 col-span-2 grid grid-cols-4'>
+						{keyboardArr.map(k => (<button 
+							className={`shadow-[inset_3px_-3px_3px_#1A1A1A] active:shadow-[inset_-2px_2px_2px_black] bg-gray-800 active:bg-gray-900 text-white py-2 m-2 rounded-xl ${typeof k == "string" ? "text-xs" : ""}`}
+							onClick={() => onKeyClick(k)}
+							key={k}
+						>{k}</button>))}
+					</div>
+				<p className='text-center shadow-[1px_-1px_1px_1px_#0A0A1F] border border-[#0A0A1F] bg-gray-900 text-xs text-red-500 pb-2 py-1 place-self-center font-digital m-1'>{`Attempts left (${attempts})`}</p>
 				</div>
-				<div className='place-self-center bg-gray-300 px-7 rounded-[100%] border-2 border-gray-900'>
-					<div 
-						id='handle'
-						className='shadow-[inset_5px_-5px_10px_#9090a0] py-10 px-3 rounded-t-2xl rounded-b-2xl'
-					/>
-				</div>
-				<div className='rounded-xl bg-gray-300 m-1 p-1 col-span-2 grid grid-cols-4'>
-					{keyboardArr.map(k => (<button 
-						className={`shadow-[inset_3px_-3px_3px_#1A1A1A] active:shadow-[inset_-2px_2px_2px_black] bg-gray-800 active:bg-gray-900 text-white py-2 m-2 rounded-xl ${typeof k == "string" ? "text-xs" : ""}`}
-						onClick={() => onKeyClick(k)}
-						key={k}
-					>{k}</button>))}
-				</div>
-			<p className='text-center shadow-[1px_-1px_1px_1px_#0A0A1F] border border-[#0A0A1F] bg-gray-900 text-xs text-red-500 pb-2 py-1 place-self-center font-digital m-1'>{`Attempts left (${attempts})`}</p>
+				{safeIsOpen ? (<div 
+					id='share-buttons'
+					className='mx-10 bg-yellow-50 border border-indigo-200 grid place-content-center'
+				><FacebookShareButton 
+					url={`https://puzzle-challenge.vercel.app/I cracked a${difficulty == "Easy" || difficulty == "Expert" ? "n" : ""} ${difficulty} code in ${difficulty == "Easy" ? 7 - attempts : difficulty == "Medium" ? 8 - attempts : difficulty == "Hard" ? 9 - attempts : 10 - attempts} attempts! Can you do better`}
+					hashtag={'#crackthecode'}
+				>
+					<FacebookIcon size={32} round className='my-1'/>
+				</FacebookShareButton></div>) : ""}
 			</div>
-			{safeIsOpen ? (<div 
-				id='share-buttons'
-				className='sticky mx-10 bg-yellow-50 border border-indigo-200 grid place-content-center'
-			><FacebookShareButton 
-				url={`https://puzzle-challenge.vercel.app/I cracked a${difficulty == "Easy" || difficulty == "Expert" ? "n" : ""} ${difficulty} code in ${difficulty == "Easy" ? 7 - attempts : difficulty == "Medium" ? 8 - attempts : difficulty == "Hard" ? 9 - attempts : 10 - attempts} attempts! Can you do better`}
-				hashtag={'#crackthecode'}
-			>
-				<FacebookIcon size={32} round className='my-1'/>
-			</FacebookShareButton></div>) : ""}
 			<div id="hints"/>
 		</div>
 	)
