@@ -222,7 +222,7 @@ export default function crackTheCode() {
 					id='share-buttons'
 					className='mx-10 bg-yellow-50 border border-indigo-200 grid place-content-center'
 				><FacebookShareButton 
-					url={`https://8e27-2-199-225-224.ngrok-free.app/crack-the-code,${difficulty},${attempts}`}
+					url={`https://puzzle-challenge.vercel.app/crack-the-code,${difficulty},${attempts}`}
 					hashtag={'#crackthecode'}
 				>
 					<FacebookIcon size={32} round className='my-1'/>
