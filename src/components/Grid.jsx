@@ -78,7 +78,7 @@ export default function Grid({ puzzleObj, puzzleBorderColor, focusedCellBorderCo
 					id='share-buttons'
 					className='bg-yellow-50 border border-indigo-200 grid place-content-center'
 				>{completed ? (<FacebookShareButton 
-					url={`https://puzzle-challenge.vercel.app/I completed a${difficulty == "Easy" || difficulty == "Expert" ? "n" : ""} ${difficulty} Sudoku in ${minutes} minute${minutes != 1 ? "s" : ""} and ${seconds} second${seconds != 1 ? "s" : ""}! Can you do better`}
+					url={`https://puzzle-challenge.vercel.app/sudoku,${difficuly},${minutes},${seconds}`}
 					hashtag={'#sudoku'}
 				>
 					<FacebookIcon size={32} round className='my-1'/>

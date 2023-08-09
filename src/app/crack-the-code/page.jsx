@@ -222,7 +222,7 @@ export default function crackTheCode() {
 					id='share-buttons'
 					className='mx-10 bg-yellow-50 border border-indigo-200 grid place-content-center'
 				><FacebookShareButton 
-					url={`https://puzzle-challenge.vercel.app/I cracked a${difficulty == "Easy" || difficulty == "Expert" ? "n" : ""} ${difficulty} code in ${difficulty == "Easy" ? 7 - attempts : difficulty == "Medium" ? 8 - attempts : difficulty == "Hard" ? 9 - attempts : 10 - attempts} attempts! Can you do better`}
+					url={`https://8e27-2-199-225-224.ngrok-free.app/crack-the-code,${difficulty},${attempts}`}
 					hashtag={'#crackthecode'}
 				>
 					<FacebookIcon size={32} round className='my-1'/>
