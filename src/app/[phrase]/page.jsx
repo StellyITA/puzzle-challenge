@@ -2,7 +2,7 @@ import FacebookLandingPage from '../../components/FacebookLandingPage.jsx'
 
 export default function Phrase({ params }) {
 	const gameData = params.phrase.split("%2C");
-	const difficulty = gameData[1];
+	const difficulty = gameData[1] == "Easy" || gameData[1] == "Medium" || gameData[1] == "Hard" || gameData[1] == "Expert" ? gameData[1] : "";
 	let minutes;
 	let seconds;
 	let attempts;
