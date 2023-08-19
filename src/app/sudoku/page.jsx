@@ -147,7 +147,7 @@ export default function Sudoku() {
 			</div>
 				<div className='p-1 text-center border border-indigo-200 m-1 sm:mr-36 sm:ml-36 md:mr-48 md:ml-48 sm:mr-36 sm:ml-36 lg:mr-72 lg:ml-72 bg-yellow-50'>
 					<p id='instruction'>Select difficulty.</p>
-					{minutes < 10 ? "0" + minutes : minutes}:{seconds < 10 ? '0' + seconds : seconds}
+					<span className='font-digital'>{minutes < 10 ? "0" + minutes : minutes}:{seconds < 10 ? '0' + seconds : seconds}</span>
 				</div>
 				<div className='grid grid-cols-4 sm:pr-36 sm:pl-36 md:pr-48 md:pl-48 lg:pr-80 lg:pl-80'>
 					{difficulties.map(diff => (
