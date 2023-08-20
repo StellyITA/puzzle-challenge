@@ -5,7 +5,8 @@ import Layout from './layout.jsx'
 import sudokuExample from '/public/images/sudoku.png';
 import ctcExample from '/public/images/crack-the-code.png';
 import sudokuTutorialsExample from '/public/images/tutorials/single-possibility.png';
-import crackTheCodeExample from '/public/images/tutorials/crack-the-code.jpg'
+import crackTheCodeExample from '/public/images/tutorials/crack-the-code.jpg';
+import minesweeperExample from 'public/images/minesweeper.png';
 
 
 export default function Home() {
@@ -16,10 +17,10 @@ export default function Home() {
     	
     	<div className="p-1 pt-5">	
 		  	<h2 className='text-2xl font-mosaic'>Games</h2>
-		  	<div className='p-2 grid grid-cols-2 gap-1 sm:grid-cols-5 sm:gap-5'>
+		  	<div className='p-1 grid grid-cols-2 gap-1 sm:grid-cols-5 sm:gap-5'>
 					<Link 
 						href='/sudoku'
-						className="hover:text-indigo-900 active:text-indigo-900"
+						className="pt-1 hover:text-indigo-900 active:text-indigo-900"
 					>Sudoku
 						<Image
 							src={sudokuExample}
@@ -29,11 +30,21 @@ export default function Home() {
 					
 					<Link 
 						href='/crack-the-code'
-						className="hover:text-indigo-900 active:text-indigo-900"
+						className="pt-1 hover:text-indigo-900 active:text-indigo-900"
 					>Crack the Code
 						<Image
 							src={ctcExample}
 							alt="Crack the Code"
+						/>
+					</Link>
+					
+					<Link 
+						href='/minesweeper'
+						className="pt-1 hover:text-indigo-900 active:text-indigo-900"
+					>Minesweeper
+						<Image
+							src={minesweeperExample}
+							alt="Minesweeper"
 						/>
 					</Link>
 					
@@ -42,11 +53,11 @@ export default function Home() {
     	
     	<div className="p-1 pt-10">	
 		  	<h2 className='text-2xl font-mosaic'>Tutorials</h2>
-		  	<div className='p-2 grid grid-cols-2 gap-1 sm:grid-cols-5 sm:gap-5'>
+		  	<div className='p-1 grid grid-cols-2 gap-1 sm:grid-cols-5 sm:gap-5'>
 		  	
 					<Link 
 						href='/sudoku-tutorials'
-						className="hover:text-indigo-900 active:text-indigo-900"
+						className="pt-1 hover:text-indigo-900 active:text-indigo-900"
 					>Sudoku Tutorials
 						<Image
 							src={sudokuTutorialsExample}
@@ -56,7 +67,7 @@ export default function Home() {
 						  	
 					<Link 
 						href='/ctc-tutorial'
-						className="hover:text-indigo-900 active:text-indigo-900"
+						className="pt-1 hover:text-indigo-900 active:text-indigo-900"
 					>CtC Tutorial
 						<Image
 							src={crackTheCodeExample}

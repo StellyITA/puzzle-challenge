@@ -9,8 +9,18 @@ export default function Minesweeper() {
 	
 	const difficulties = ["Easy","Medium","Hard","Expert"];
 	
+	const fireSound = '/sounds/fire.wav';
+	const explosionSound = '/sounds/explosion.wav';
+	const winSound = '/sounds/harp-win.mp3'
+	const fireAudio = new Audio(fireSound);
+	fireAudio.volume = 0.2;
+	const explosionAudio = new Audio(explosionSound);
+	const winAudio = new Audio(winSound);
+	
 	const winTileBg = `bg-[url('/images/win-tile.png')]`;
 	const bombTileBg = `bg-[url('/images/exploding-bomb.png')]`;
+	const bombTile2Bg = `bg-[url('/images/exploding-bomb-2.png')]`;
+	const explosionTileBg = `bg-[url('/images/explosion.png')]`;
 	const toggledButtonColor = "bg-blue-600 active:bg-blue-700 hover:bg-blue-700 border border-blue-800 text-white";
 	const untoggledButtonColor = 'bg-indigo-200 active:bg-indigo-300 hover:bg-indigo-300 border border-indigo-400';
 	
@@ -45,13 +55,34 @@ export default function Minesweeper() {
 							document.getElementById(x + "," + y).className = winTileBg;
 							document.getElementById(x + "," + y).onclick = "";
 							clearInterval(timerRef.current);
+							winAudio.play();
 							return setEnd(true);
 						}
 					}));
 				}
 			} else {
-				document.getElementById(coord[0] + "," + coord[1]).className = bombTileBg + " bg-no-repeat bg-cover";
 				clearInterval(timerRef.current);
+				document.getElementById(coord[0] + "," + coord[1]).className = bombTileBg + " bg-no-repeat bg-cover";
+				fireAudio.play();
+				setTimeout(() => {
+					document.getElementById(coord[0] + "," + coord[1]).className = bombTile2Bg + " bg-no-repeat bg-cover";
+				},150);
+				setTimeout(() => {
+					document.getElementById(coord[0] + "," + coord[1]).className = bombTileBg + " bg-no-repeat bg-cover";
+				},300);
+				setTimeout(() => {
+					document.getElementById(coord[0] + "," + coord[1]).className = bombTile2Bg + " bg-no-repeat bg-cover";
+				},450);
+				setTimeout(() => {
+					document.getElementById(coord[0] + "," + coord[1]).className = bombTileBg + " bg-no-repeat bg-cover";
+				},600);
+				setTimeout(() => {
+					document.getElementById(coord[0] + "," + coord[1]).className = explosionTileBg + " bg-no-repeat bg-cover";
+				explosionAudio.play();
+				},750);
+				setTimeout(() => {
+					document.getElementById(coord[0] + "," + coord[1]).className = "bg-gray-900";
+				},1000);
 				return setEnd(true);
 			}
 		}
@@ -122,9 +153,9 @@ export default function Minesweeper() {
 					href='/'
 					className='justify-self-start px-5 hover:text-indigo-900 active:text-indigo-900'
 				>Home</Link><Link 
-					href='/sudoku-tutorials'
-					className='justify-self-end px-5 hover:text-indigo-900 active:text-indigo-900'
-				>Tutorials</Link>
+					href='/minesweeper-tutorial'
+					className='hidden justify-self-end px-5 hover:text-indigo-900 active:text-indigo-900'
+				>Tutorial</Link>
 			</div>
 			<div className='font-digital p-1 text-center border border-indigo-200 m-1 sm:mr-36 sm:ml-36 md:mr-48 md:ml-48 sm:mr-36 sm:ml-36 lg:mr-72 lg:ml-72 bg-yellow-50'>
 					{minutes < 10 ? "0" + minutes : minutes}:{seconds < 10 ? "0" + seconds : seconds}
