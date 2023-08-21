@@ -4,6 +4,11 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
+import {
+  FacebookShareButton,
+  FacebookIcon,
+} from 'next-share'
+
 import { getMatrix, getClues, getAdjacent } from "../../controllers/mineSweeper.js";
 import flagBtn from '/public/images/flag-btn.png';
 
@@ -21,6 +26,9 @@ export default function Minesweeper() {
 	fireAudio.volume = 0.2;
 	const explosionAudio = new Audio(explosionSound);
 	const winAudio = new Audio(winSound);
+	
+	
+	// Styles
 	
 	const winTileBg = `bg-[url('/images/win-tile.png')]`;
 	const bombTileBg = `bg-[url('/images/exploding-bomb.png')]`;
@@ -40,6 +48,7 @@ export default function Minesweeper() {
 	const [end,setEnd] = useState(false);
 	const [timer,setTimer] = useState(0);
 	const [flag,setFlag] = useState(false);
+	const [win,setWin] = useState(false);
 	
 	
 	// Hooks
@@ -70,6 +79,7 @@ export default function Minesweeper() {
 							document.getElementById(x + "," + y).onclick = "";
 							clearInterval(timerRef.current);
 							winAudio.play();
+							setWin(true);
 							return setEnd(true);
 						}
 					}));
@@ -173,6 +183,7 @@ export default function Minesweeper() {
 		startStop(false);
 		setClicked("");
 		setFlag(false);
+		setWin(false);
 		return setEnd(false);
 	}
 	
@@ -187,11 +198,22 @@ export default function Minesweeper() {
 					className='justify-self-start px-5 hover:text-indigo-900 active:text-indigo-900'
 				>Home</Link><Link 
 					href='/minesweeper-tutorial'
-					className='hidden justify-self-end px-5 hover:text-indigo-900 active:text-indigo-900'
+					className='justify-self-end px-5 hover:text-indigo-900 active:text-indigo-900'
 				>Tutorial</Link>
 			</div>
 			<div className='font-digital p-1 text-center border border-indigo-200 m-1 sm:mr-36 sm:ml-36 md:mr-48 md:ml-48 sm:mr-36 sm:ml-36 lg:mr-72 lg:ml-72 bg-yellow-50'>
 					{minutes < 10 ? "0" + minutes : minutes}:{seconds < 10 ? "0" + seconds : seconds}
+				
+						{win ? (<div 
+							id='share-buttons'
+							className='place-content-center'
+						><FacebookShareButton 
+							url={`https://puzzle-challenge.vercel.app/minesweeper,${difficulty},${minutes},${seconds}`}
+							hashtag={'#minesweeper'}
+						>
+							<FacebookIcon size={32} round className='my-1'/>
+						</FacebookShareButton></div>) : ""}
+				
 				</div>
 			<div className='grid grid-cols-4 sm:pr-36 sm:pl-36 md:pr-48 md:pl-48 lg:pr-80 lg:pl-80'>
 				{difficulties.map(diff => (
@@ -210,7 +232,7 @@ export default function Minesweeper() {
 				src={flagBtn}
 				alt="Flag Button"
 			/></button>
-			<div className={`place-self-center grid grid-cols-10 aspect-square landscape:w-[30%] portrait:w-[100%] m-1 border border-green-900`}>
+			<div className={`place-self-center grid grid-cols-10 landscape:w-[27%] portrait:w-[100%] m-1 border border-green-900`}>
 				{board.map((row,y) => row.map((cell,x) => <button 
 					className="aspect-square border border-green-900 bg-yellow-50 hover:bg-green-200 shadow-[inset_1px_-1px_10px_#88BB88] active:shadow-[inset_-1px_1px_5px_#669966]"
 					onClick={() => !start ? onFirstClick(x,y) : !flag ? onClick(x,y) : handleFlag(x,y)}

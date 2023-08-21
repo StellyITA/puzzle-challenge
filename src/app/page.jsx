@@ -7,6 +7,7 @@ import ctcExample from '/public/images/crack-the-code.png';
 import sudokuTutorialsExample from '/public/images/tutorials/single-possibility.png';
 import crackTheCodeExample from '/public/images/tutorials/crack-the-code.jpg';
 import minesweeperExample from 'public/images/minesweeper.png';
+import minesweeperTutorialExample from 'public/images/tutorials/minesweeper.png';
 
 
 export default function Home() {
@@ -72,6 +73,16 @@ export default function Home() {
 						<Image
 							src={crackTheCodeExample}
 							alt="Crack the Code Tutorial"
+						/>
+					</Link>	
+						  	
+					<Link 
+						href='/minesweeper-tutorial'
+						className="pt-1 hover:text-indigo-900 active:text-indigo-900"
+					>Minesweeper Tutorial
+						<Image
+							src={minesweeperTutorialExample}
+							alt="Minesweeper Tutorial"
 						/>
 					</Link>
 					
