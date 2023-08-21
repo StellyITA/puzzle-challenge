@@ -2,12 +2,17 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 import { getMatrix, getClues, getAdjacent } from "../../controllers/mineSweeper.js";
+import flagBtn from '/public/images/flag-btn.png';
 
 export default function Minesweeper() {
 	
 	const difficulties = ["Easy","Medium","Hard","Expert"];
+	
+	
+	// Audio
 	
 	const fireSound = '/sounds/fire.wav';
 	const explosionSound = '/sounds/explosion.wav';
@@ -21,8 +26,12 @@ export default function Minesweeper() {
 	const bombTileBg = `bg-[url('/images/exploding-bomb.png')]`;
 	const bombTile2Bg = `bg-[url('/images/exploding-bomb-2.png')]`;
 	const explosionTileBg = `bg-[url('/images/explosion.png')]`;
+	const flagTileBg = `bg-[url('/images/flag.png')]`;
 	const toggledButtonColor = "bg-blue-600 active:bg-blue-700 hover:bg-blue-700 border border-blue-800 text-white";
 	const untoggledButtonColor = 'bg-indigo-200 active:bg-indigo-300 hover:bg-indigo-300 border border-indigo-400';
+	
+	
+	// States
 	
 	const [difficulty,setDifficulty] = useState(difficulties[0]);
 	const [board,setBoard] = useState(getMatrix(difficulty));
@@ -30,6 +39,10 @@ export default function Minesweeper() {
 	const [clicked,setClicked] = useState("");
 	const [end,setEnd] = useState(false);
 	const [timer,setTimer] = useState(0);
+	const [flag,setFlag] = useState(false);
+	
+	
+	// Hooks
 	
 	const timerRef = useRef();
 	
@@ -49,7 +62,8 @@ export default function Minesweeper() {
 			if (board[coord[1]][coord[0]] != "M") {
 				uncoverCells(coord[0],coord[1]);
 				const coveredCells = document.getElementsByClassName("border-green-900 bg-yellow-50").length;
-				if (coveredCells == mines) {
+				const flaggedCells = document.getElementsByClassName(flagTileBg + " bg-no-repeat bg-cover").length;
+				if ((coveredCells + flaggedCells) == mines) {
 					board.map((row,y) => row.map((cell,x) => {
 						if (cell == "M") {
 							document.getElementById(x + "," + y).className = winTileBg;
@@ -88,10 +102,13 @@ export default function Minesweeper() {
 		}
 	},[clicked]);
 	
+	
+	// Event Handlers
+	
 	function uncoverCells(x,y) {
 		const cell = document.getElementById(x + "," + y);
 		cell.className = cell.className.replace("bg-yellow-50 hover:bg-green-200 shadow-[inset_1px_-1px_10px_#88BB88] active:shadow-[inset_-1px_1px_5px_#669966]","bg-green-400");
-		cell.onclick = "";
+		cell.disabled = true;
 		if (cell.value != 0) {
 			cell.innerHTML = cell.value;
 		} else {
@@ -102,7 +119,7 @@ export default function Minesweeper() {
 				checked.push(JSON.stringify(checkCoord));
 				const checkCell = document.getElementById(checkCoord.x + "," + checkCoord.y);
 				checkCell.className = checkCell.className.replace("bg-yellow-50 hover:bg-green-200 shadow-[inset_1px_-1px_10px_#88BB88] active:shadow-[inset_-1px_1px_5px_#669966]","bg-green-400");
-				checkCell.onclick = "";
+				checkCell.disabled = true;
 				if (checkCell.value != 0) {
 					checkCell.innerHTML = checkCell.value;
 				} else {
@@ -129,17 +146,33 @@ export default function Minesweeper() {
 		return setClicked(click);
 	}
 	
+	function handleFlag(x,y) {
+		const cell = document.getElementById(x + "," + y);
+		if (cell.className == flagTileBg + " bg-no-repeat bg-cover") {
+			cell.className = "aspect-square border border-green-900 bg-yellow-50 hover:bg-green-200 shadow-[inset_1px_-1px_10px_#88BB88] active:shadow-[inset_-1px_1px_5px_#669966]";
+		} else {
+			cell.className = flagTileBg + " bg-no-repeat bg-cover";
+		}
+	}
+	
+	function onFlagClick() {
+		const flagBtn = document.getElementById("flag");
+		return setFlag(prev => !prev);
+	}
+	
 	function onDiffClick(diff) {
 		clearInterval(timerRef.current);
 		setTimer(0);
 		board.map((row,y) => row.map((cell,x) => {
 			document.getElementById(x + "," + y).className = 'aspect-square border border-green-900 bg-yellow-50 hover:bg-green-200 shadow-[inset_1px_-1px_10px_#88BB88] active:shadow-[inset_-1px_1px_5px_#669966]';
 			document.getElementById(x + "," + y).innerHTML = "";
+			document.getElementById(x + "," + y).disabled = false;
 		}));
 		setDifficulty(diff);
 		setBoard(getMatrix(diff));
 		startStop(false);
 		setClicked("");
+		setFlag(false);
 		return setEnd(false);
 	}
 	
@@ -169,10 +202,18 @@ export default function Minesweeper() {
 					>{diff}</button>
 				))}
 			</div>
+			<button 
+				onClick={() => onFlagClick()}
+				className={`justify-self-center py-1 px-0.5 pr-1.5 ${flag ? "rounded-3xl bg-blue-400" : ""}`}
+				id="flag"
+			><Image 
+				src={flagBtn}
+				alt="Flag Button"
+			/></button>
 			<div className={`place-self-center grid grid-cols-10 aspect-square landscape:w-[30%] portrait:w-[100%] m-1 border border-green-900`}>
 				{board.map((row,y) => row.map((cell,x) => <button 
 					className="aspect-square border border-green-900 bg-yellow-50 hover:bg-green-200 shadow-[inset_1px_-1px_10px_#88BB88] active:shadow-[inset_-1px_1px_5px_#669966]"
-					onClick={() => !start ? onFirstClick(x,y) : onClick(x,y)}
+					onClick={() => !start ? onFirstClick(x,y) : !flag ? onClick(x,y) : handleFlag(x,y)}
 					id={x + "," + y}
 					value={cell}
 					key={x + "," + y}
