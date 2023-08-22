@@ -8,19 +8,14 @@ export default function Phrase({ params }) {
 	let attempts;
 	
 	if (gameData[0] == "crack-the-code" 
-		&& parseInt(gameData[2]) 
 		&& parseInt(gameData[2]) < 10) {
 		attempts = gameData[2]
-	} else if (gameData[0] == "sudoku" 
-		&& parseInt(gameData[2]) 
-		&& parseInt(gameData[3])) {
-		minutes = gameData[2]
-		seconds = gameData[3];
-	} else if (gameData[0] == "minesweeper" 
-		&& parseInt(gameData[2]) 
-		&& parseInt(gameData[3])) {
-		minutes = gameData[2]
-		seconds = gameData[3];
+	} else if (gameData[0] == "sudoku") {
+		minutes = parseInt(gameData[2])
+		seconds = parseInt(gameData[3]);
+	} else if (gameData[0] == "minesweeper") {
+		minutes = parseInt(gameData[2]);
+		seconds = parseInt(gameData[3]);
 	}
 	
 	const img = params.phrase.match("sudoku") ? "sudoku" : params.phrase.match("crack-the-code") ? "crack-the-code" : params.phrase.match("minesweeper") ? "minesweeper" : "";
