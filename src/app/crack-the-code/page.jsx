@@ -12,31 +12,31 @@ import {
 export default function crackTheCode() {
 	
 	function getCode(difficulty) {
-	let numsArr = Array.from({length: 10}, (v,i) => i);
-	let codeLength;
-	if (difficulty == "Easy") {
-		codeLength = 3;
-	} else if (difficulty == "Medium") {
-		numsArr = numsArr.concat(numsArr);
-		codeLength = 4;
-	} else if (difficulty == "Hard") {
-		numsArr = numsArr.concat(numsArr).concat(numsArr);
-		codeLength = 5;
-	} else {
-		codeLength = 6;
-	}
-	let code = [];
-	while (code.length < codeLength) {
-		if (difficulty != "Expert") {
-			const randomIndex = Math.floor(Math.random() * numsArr.length);
-			code.push(numsArr[randomIndex]);
-			numsArr.splice(randomIndex,1);
+		let numsArr = Array.from({length: 10}, (v,i) => i);
+		let codeLength;
+		if (difficulty == "Easy") {
+			codeLength = 3;
+		} else if (difficulty == "Medium") {
+			numsArr = numsArr.concat(numsArr);
+			codeLength = 4;
+		} else if (difficulty == "Hard") {
+			numsArr = numsArr.concat(numsArr).concat(numsArr);
+			codeLength = 5;
 		} else {
-			code.push(Math.floor(Math.random() * 10));
+			codeLength = 6;
 		}
+		let code = [];
+		while (code.length < codeLength) {
+			if (difficulty != "Expert") {
+				const randomIndex = Math.floor(Math.random() * numsArr.length);
+				code.push(numsArr[randomIndex]);
+				numsArr.splice(randomIndex,1);
+			} else {
+				code.push(Math.floor(Math.random() * 10));
+			}
+		}
+		return code.join("");
 	}
-	return code.join("");
-}
 	
 	const correctCode = '/sounds/correct-code.mp3';
 	const wrongCode = '/sounds/wrong-code.mp3';

@@ -9,6 +9,7 @@ import {
   FacebookIcon,
 } from 'next-share'
 
+import { useSound } from 'use-sound';
 import { getMatrix, getClues, getAdjacent } from "../../controllers/mineSweeper.js";
 import flagBtn from '/public/images/flag-btn.png';
 
@@ -22,10 +23,9 @@ export default function Minesweeper() {
 	const fireSound = '/sounds/fire.wav';
 	const explosionSound = '/sounds/explosion.wav';
 	const winSound = '/sounds/harp-win.mp3'
-	const fireAudio = new Audio(fireSound);
-	fireAudio.volume = 0.2;
-	const explosionAudio = new Audio(explosionSound);
-	const winAudio = new Audio(winSound);
+	const [fireAudio] = useSound(fireSound, { volume: 0.2 });
+	const [explosionAudio] = useSound(explosionSound);
+	const [winAudio] = useSound(winSound);
 	
 	
 	// Styles
@@ -78,7 +78,7 @@ export default function Minesweeper() {
 							document.getElementById(x + "," + y).className = winTileBg;
 							document.getElementById(x + "," + y).onclick = "";
 							clearInterval(timerRef.current);
-							winAudio.play();
+							winAudio();
 							setWin(true);
 							return setEnd(true);
 						}
@@ -87,7 +87,7 @@ export default function Minesweeper() {
 			} else {
 				clearInterval(timerRef.current);
 				document.getElementById(coord[0] + "," + coord[1]).className = bombTileBg + " bg-no-repeat bg-cover";
-				fireAudio.play();
+				fireAudio();
 				setTimeout(() => {
 					document.getElementById(coord[0] + "," + coord[1]).className = bombTile2Bg + " bg-no-repeat bg-cover";
 				},150);
@@ -102,7 +102,7 @@ export default function Minesweeper() {
 				},600);
 				setTimeout(() => {
 					document.getElementById(coord[0] + "," + coord[1]).className = explosionTileBg + " bg-no-repeat bg-cover";
-				explosionAudio.play();
+				explosionAudio();
 				},750);
 				setTimeout(() => {
 					document.getElementById(coord[0] + "," + coord[1]).className = "bg-gray-900";
